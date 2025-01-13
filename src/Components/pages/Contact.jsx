@@ -20,19 +20,19 @@ import {
     {
       icon: <FaPhone />,
       title: "Phone",
-      details: "+1 (555) 123-4567",
+      details: "+254 742 780 970",
       action: "Call us",
     },
     {
       icon: <FaEnvelope />,
       title: "Email",
-      details: "support@digitalcontribute.com",
+      details: "stevekid705@gmail.com",
       action: "Email us",
     },
     {
       icon: <FaWhatsapp />,
       title: "WhatsApp",
-      details: "+1 (555) 987-6543",
+      details: "+254 742 780 970",
       action: "Message us",
     },
     {

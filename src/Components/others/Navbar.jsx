@@ -14,7 +14,7 @@ export default function Navbar() {
             <FaHeart className="text-2xl" />
             <span className="text-xl font-bold hidden md:block">Valentino</span>
           </NavLink>
-          <div className="hidden md:flex space-x-8 text-lg">
+          <div className="hidden md:flex space-x-6 text-lg">
             <NavLink
               to="/singles"
               className="hover:text-pink-200 transition-colors"
