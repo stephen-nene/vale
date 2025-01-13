@@ -1,25 +1,29 @@
-# Vale
-
-# Description:
-
-Valentines webpage
-
-## Technologies Used
-
-- ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-- ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-- ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
-- ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
-- ![Javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-- ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-- ![Tailwind Css]( 	https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-- ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
 
-##  [![BuiltBy](https://img.shields.io/badge/Built-By-GE7A10?style=flat-square&logo=BuzzFeed&logoColor=white)](https://github.com/stephen-nene)
-- **[stevo-nene](https://github.com/stephen-nene)**
+- [Form ](https://docs.google.com/forms/d/e/1FAIpQLSd-xt-us0EBCNkuYdXNJEkEiaMj_oW28e2YJzWzU6nG2VfIjQ/viewform)
 
-## LICENSE
-- This project is licensed under the MIT License. See the [GNU](./LICENSE) file for details.
+## Deadline for submission
+24 January 2025
 
+- [Links To apply](https://afkenya.org/call-for-projects/)
+
+## Requirements
+1. Share links to previous work/portfolio
+2. Share a link to a video presentation (max 2 minutes)
+3. Mentorship needs
+4. Roles of my team members
+5. [Budget](https://docs.google.com/spreadsheets/d/1X_KohyyqwQ0ejq6ORwwNWwoGEupw4Jtk/edit?gid=529560502#gid=529560502)
+6. [Project timeline](https://docs.google.com/spreadsheets/d/1Wf9-BCnVfTJAGgcAdYCCd4m9JZ9aKEwm/edit?gid=1331232422#gid=1331232422)
+
+* you dont have to use those templates 
+
+# Something to rethink
+1. [Heros Section](https://medium.muz.li/how-to-create-a-great-website-hero-section-f22ec2f6e86a)
+
+
+# Tools needed
+1. A 3D model avatar with lip sync
+2. An AI model with natural language processing capabilities
+3. Vision `<>` text  understanding 
+4. Text to Voice model
+5. Authentication systems
