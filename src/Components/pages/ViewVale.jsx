@@ -36,7 +36,7 @@ export default function ViewVale() {
       senderPhone: "+254741780970",
       senderEmail: "steve@wangigemarket.com",
       senderMessage:
-        "Would you be my Valentine? I'd love to take you somewhere special!",
+        "I'm looking for an accountability partner to help us both stay on track with our 2025 goals. Let's collaborate and achieve success together!",
       recipientName: "Jane Doe",
       recipientPhone: "+9876543210",
       recipientEmail: "jane@example.com",
@@ -45,8 +45,9 @@ export default function ViewVale() {
       dressCode: "Smart Casual",
       location: "Not yet Decided",
       meetingDate: "2024-02-14T19:00:00Z",
-      theme: "Make our exes jealous",
-      additionalInfo: "Utatoa ngapi before accepting",
+      theme: "2025 Goal Tracking",
+      additionalInfo:
+        "Let’s be proactive and honest with our progress. ",
     },
   };
 
@@ -125,7 +126,11 @@ export default function ViewVale() {
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-4">
             <FaHeart className="text-red-500 text-2xl" />
-            <h2 className="text-2xl font-semibold">Valentine's Request</h2>
+            <h2 className="text-2xl font-semibold">
+              Accountability partner Request
+              {/* I'm flexible on how we structure our
+              collaboration. */}
+            </h2>
           </div>
 
           <div className="p-4 bg-pink-50 rounded-lg mb-6">
