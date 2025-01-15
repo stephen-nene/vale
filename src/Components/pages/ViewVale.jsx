@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaUser,
@@ -23,7 +23,8 @@ export default function ViewVale() {
   });
   const [loading, setLoading] = useState(false);
   const [activeButton, setActiveButton] = useState(response.status);
-  const [error, setError] = useState(""); // To store validation error
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // Sample request data
   const request = {
@@ -44,7 +45,7 @@ export default function ViewVale() {
       dressCode: "Smart Casual",
       location: "Not yet Decided",
       meetingDate: "2024-02-14T19:00:00Z",
-      theme: "Make our exes jelous",
+      theme: "Make our exes jealous",
       additionalInfo: "Utatoa ngapi before accepting",
     },
   };
@@ -57,21 +58,35 @@ export default function ViewVale() {
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLICKEY;
-// console.log(templateId);
+  // console.log(templateId);
+
+  const validateForm = () => {
+    const phoneRegex = /^07\d{8}$/; // Regex for validating 10-digit numbers starting with '07'
+    const trimmedMessage = response.message.trim();
+
+    // Validate phone number
+    if (!phoneRegex.test(response.number)) {
+      message.error("Please enter a valid phone number (e.g. 0741780970)", 2);
+      setError("Please enter a valid phone number in the format 0741780970.");
+      return false;
+    }
+
+    // Validate message
+    if (trimmedMessage.length < 10) {
+      message.error("Please enter a response with at least 10 characters", 2);
+      setError("Your Response must be at least 10 characters long.");
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const phoneRegex = /^07\d{8}$/; // Regex for validating 10-digit numbers starting with '07'
-    const loadingToast = message.loading("sending response...", 0);
-    if (!phoneRegex.test(response.number)) {
-      message.error("Please enter a valid phone number", 2);
-      setError("Please enter a valid phone number in the format 0741780970.");
-      return;
-    } else {
-      setError(""); // Clear any previous error
-    }
+    if (!validateForm()) return;
     setLoading(true);
+    const loadingToast = message.loading("sending response...", 0);
     try {
-      console.log("Submitted response:", response);
       // Email.js integration
       const templateParams = {
         senderName: response.senderName || "Unknown",
@@ -83,7 +98,17 @@ export default function ViewVale() {
       const result = await emailjs.send(serviceId, templateId, templateParams, {
         publicKey: publicKey,
       });
-      console.log("Email sent:", result.text);
+      // console.log("Email sent:", result.text);
+      message.success("Email sent successfully, Refreshing in 5....", 5);
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+      setResponse({
+        email: "",
+        message: "",
+        number: "",
+        status: "accepted",
+      });
 
       // Here you would make your API call
     } catch (error) {
@@ -191,7 +216,6 @@ export default function ViewVale() {
                 }
               />
             </div>
-            {error && <Alert message={error} type="error" showIcon closable />}
             <h3 className="font-semibold">Your Email</h3>
             <div className="flex gap-2">
               <input
@@ -223,6 +247,7 @@ export default function ViewVale() {
               className="w-full p-3 border rounded-lg focus:outline-none focus:border-red-500"
               rows="4"
             />
+            {error && <Alert message={error} type="error" showIcon closable />}
 
             <div className="flex gap-4">
               <button
