@@ -13,7 +13,6 @@ import {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormStatus("success");
-    // Add form submission logic here
   };
 
   const contactInfo = [

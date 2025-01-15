@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, {  Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import  ProtectedRoute from "../Components/others/ProtectedRoute.jsx"
 
@@ -7,23 +7,12 @@ import  ProtectedRoute from "../Components/others/ProtectedRoute.jsx"
 import { routeConfig, Loader } from "./routes";
 
 import Navbar from "../Components/others/Navbar.jsx";
-import Landing from "../Components/pages/Landing.jsx";
-import Error404 from "../Components/others/Error404.jsx";
+
 import Footer from "../Components/others/Footer.jsx";
-import Contact from "../Components/pages/Contact.jsx";
-import About from "../Components/pages/About.jsx";
-import Singles from "../Components/pages/Singles.jsx";
-import Couples from "../Components/pages/Couples.jsx";
+
 
 import "../assets/css/App.css";
 
-// Lazy loaded components
-const Login = lazy(() => import("../Components/Auth/Login.jsx"));
-const Signup = lazy(() => import("../Components/Auth/Signup.jsx"));
-const Reset = lazy(() => import("../Components/Auth/Reset.jsx"));
-const Forgot = lazy(() => import("../Components/Auth/Forgot.jsx"));
-
-// Fallback Loader
 
 
 export default function App() {

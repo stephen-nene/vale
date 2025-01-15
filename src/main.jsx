@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import "./assets/css/index.css";
 import App from './App/App.jsx'
 import { BrowserRouter } from 'react-router-dom';
-
+import { Analytics } from "@vercel/analytics/react";
 
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -16,5 +16,6 @@ createRoot(document.getElementById('root')).render(
       <App />
     </BrowserRouter>
     </Provider>
+    <Analytics />
   </StrictMode>,
 )

@@ -21,6 +21,8 @@ import Contact from "../Components/pages/Contact.jsx";
 import About from "../Components/pages/About.jsx";
 import Singles from "../Components/pages/Singles.jsx";
 import Couples from "../Components/pages/Couples.jsx";
+import ValeReq from "../Components/pages/ValeReq.jsx";
+import ViewVale from "../Components/pages/ViewVale.jsx";
 
 
 
@@ -37,6 +39,8 @@ export const routeConfig = [
   { path: "/contact", element: Contact },
   { path: "/singles", element: Singles },
   { path: "/about", element: About },
+  { path: "/valereq", element: ValeReq },
+  { path: "/viewvale/:id", element: ViewVale },
 
   // Protected Routes
   // {
