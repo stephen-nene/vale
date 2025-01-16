@@ -84,16 +84,17 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
+    <div className="min-h-screen bg-rose-50  dark:bg-slate-900 ">
+      {/* <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white dark:from-gray-950 dark:to-gray-900"> */}
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-extrabold  sm:text-5xl md:text-6xl">
               <span className="block">Where Love Stories</span>
               <span className="block text-rose-600">Begin & Flourish</span>
             </h1>
-            <p className="mt-5 text-lg text-gray-600 sm:max-w-xl lg:mx-0">
+            <p className="mt-5 text-lg text-gray-600 dark:text-gray-50 sm:max-w-xl lg:mx-0">
               Whether you're seeking your perfect match or looking to strengthen
               your relationship, our platform provides the tools for meaningful
               connections.

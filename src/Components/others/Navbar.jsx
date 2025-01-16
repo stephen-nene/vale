@@ -1,32 +1,51 @@
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import { FaHeart, FaBars, FaTimes, FaMoon, FaSun } from "react-icons/fa";
 import { NavLink, Link } from "react-router-dom";
 
+import { setDarkMode } from '../../store/actions/appAction.js'
+import { useDispatch,useSelector } from "react-redux";
+
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+    const mobileMenuRef = useRef(null);
+  const darkMode = useSelector((state) => state.app.darkMode);
+  const dispatch = useDispatch();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-    document.documentElement.classList.toggle("dark", !isDarkMode);
-  };
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <nav className="sticky top-0 z-20">
       <header
-        className={`bg-gradient-to-r from-rose-600 to-pink-700 text-white ${
-          isDarkMode ? "dark" : ""
-        }`}
+        className={`bg-pink-700 gradient-to-r from-rose-600 to-pink-700 dark:bg-black text-white `}
       >
         <nav className="mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
           <NavLink
             to="/"
-            className="flex items-center space-x-2 hover:text-pink-200"
+            className="dark:text-rose-600 flex items-center space-x-2 hover:text-pink-200"
           >
             <FaHeart className="text-2xl" />
             <span className="text-xl font-bold hidden md:block">Valentino</span>
@@ -83,16 +102,19 @@ export default function Navbar() {
 
           {/* Dark Mode Toggle */}
           <button
-            className="bg-gray-900  hover:bg-pink-950 px-3 py-2 rounded-full transition-colors text-2xl"
-            onClick={toggleDarkMode}
+            className=" px-3 py-2 rounded-full transition-colors text-2xl"
+            onClick={() => dispatch(setDarkMode(!darkMode))}
           >
-            {isDarkMode ? <FaSun /> : <FaMoon />}
+            {darkMode ? <FaSun /> : <FaMoon />}
           </button>
         </nav>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-gradient-to-r from-rose-600 to-pink-700 text-white py-4 px-6">
+          <div
+            ref={mobileMenuRef}
+            className="md:hidden fixed top-19 left-0 right-0 bg-gradient-to-r from-rose-600 to-pink-700 dark:from-gray-900 dark:to-gray-950 text-white py-4 px-6 z-50"
+          >
             <NavLink
               to="/singles"
               className="block py-2 hover:text-pink-200 transition-colors"

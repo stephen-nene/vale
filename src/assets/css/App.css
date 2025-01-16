@@ -1,4 +1,7 @@
 a.active{
   color: #0f0d0b;
 }
+.dark a.active{
+  color:#D51C50
+}
 

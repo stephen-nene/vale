@@ -1,23 +1,20 @@
 import React, {  Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import  ProtectedRoute from "../Components/others/ProtectedRoute.jsx"
-
-
-
-import { routeConfig, Loader } from "./routes";
-
 import Navbar from "../Components/others/Navbar.jsx";
-
 import Footer from "../Components/others/Footer.jsx";
 
 
+import { routeConfig, Loader } from "./routes";
 import "../assets/css/App.css";
 
 
 
 export default function App() {
 
-  const darkMode = true
+  const darkMode = useSelector((state) => state.app.darkMode);
 
     const renderRoute = (route) => {
       const RouteComponent = route.element;
@@ -55,9 +52,9 @@ export default function App() {
     };
   
     return (
-      <div className={`${darkMode ? "dark" : ""} `}>
-        <Navbar />
-        <div className="  min-h-screen ">
+      <div className={`${darkMode ? "dark " : ""} `}>
+        <Navbar darkMode={darkMode} />
+        <div className="bg-pink-50 dark:bg-pink-950 dark:text-white min-h-screen ">
           <Routes>{routeConfig.map(renderRoute)}</Routes>
         </div>
         <Footer />

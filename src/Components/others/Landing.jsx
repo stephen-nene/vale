@@ -72,7 +72,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white ">
       {/* Navigation */}
       <nav className="bg-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4">
