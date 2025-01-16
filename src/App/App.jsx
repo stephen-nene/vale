@@ -11,10 +11,10 @@ import { routeConfig, Loader } from "./routes";
 import "../assets/css/App.css";
 
 
-
 export default function App() {
 
   const darkMode = useSelector((state) => state.app.darkMode);
+
 
     const renderRoute = (route) => {
       const RouteComponent = route.element;

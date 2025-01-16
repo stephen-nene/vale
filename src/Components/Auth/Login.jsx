@@ -1,17 +1,23 @@
-import React from "react";
-import { Form, Input, Button, message } from "antd";
+import React,{useState} from "react";
+import { Form, Input, Alert, message } from "antd";
 import { AiOutlineMail, AiOutlineLock, AiOutlineHeart } from "react-icons/ai";
-import {Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+
+import { serverLogin } from "../requests/auth";
 const Login = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userdata = useSelector((state) => state.user.userData);
+  console.log(userdata); 
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    message.success("Login successful!");
+  const onFinish = async (values) => {
+    await serverLogin(values, navigate, dispatch);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo?.errorFields[0]);
     message.error("Please check your input and try again.");
   };
 
@@ -33,7 +39,12 @@ const Login = () => {
       {/* Form Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center mb-8">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-center mb-8">
+            Welcome Back{" "}
+            <span className="text-green-500 uppercase">
+              {userdata?.username}
+            </span>
+          </h1>
 
           <Form
             form={form}
@@ -44,7 +55,7 @@ const Login = () => {
             size="large"
           >
             <Form.Item
-              name="emailOrUsername"
+              name="identifier"
               rules={[
                 {
                   required: true,
@@ -87,8 +98,11 @@ const Login = () => {
               </button>
             </Form.Item>
             <div className="text-xl text-gray-600 mb-3">
-              Don't have an account yet? {" "}
-              <Link to="/register" className="text-pink-500 hover:text-pink-600">
+              Don't have an account yet?{" "}
+              <Link
+                to="/register"
+                className="text-pink-500 hover:text-pink-600"
+              >
                 Register
               </Link>
             </div>

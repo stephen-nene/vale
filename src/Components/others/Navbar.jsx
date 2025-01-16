@@ -83,6 +83,12 @@ export default function Navbar() {
             >
               Contact
             </NavLink>
+            <NavLink
+              to="/profile"
+              className="hover:text-pink-200 transition-colors"
+            >
+              Profile
+            </NavLink>
           </div>
 
           {/* Mobile Menu Icon */}

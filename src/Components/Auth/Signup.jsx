@@ -1,16 +1,18 @@
-import React from "react";
-import { Form, Input, Button, message } from "antd";
+import React,{useState} from "react";
+import { Form, Input, Alert, message } from "antd";
 import { AiOutlineMail, AiOutlineLock, AiOutlineHeart } from "react-icons/ai";
 import { IoCallOutline, IoAtOutline, IoManOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+
+import { serverSignup } from "../requests/auth";
 const Register = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [error, setError] = useState();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    message.success("Registration successful!");
+  const onFinish = async (values) => {
+    await serverSignup(values, navigate, setError);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
     message.error("Please check your input and try again.");
@@ -37,7 +39,25 @@ const Register = () => {
           <h1 className="text-3xl font-bold text-center mb-8">
             Create Account
           </h1>
+          <div className="my-3">
 
+          {error?.length > 0 && (
+            <Alert
+              message="Signup Errors"
+              showIcon
+              description={
+                <ul>
+                  {error.map((error, index) => (
+                    <li className="mb-1" key={index}>{error}</li>
+                  ))}
+                </ul>
+              }
+              type="error"
+              closable
+              onClose={() => setError([])}
+            />
+          )}
+          </div>
           <Form
             form={form}
             name="register"
@@ -62,14 +82,14 @@ const Register = () => {
               />
             </Form.Item>
             <div className="flex gap-2">
-              <Form.Item name="firstName ">
+              <Form.Item name="first_name">
                 <Input
                   prefix={<IoManOutline className="text-lg text-gray-400" />}
                   placeholder="first name"
                   className="rounded-lg"
                 />
               </Form.Item>
-              <Form.Item name="lastName">
+              <Form.Item name="last_name">
                 <Input
                   prefix={<IoManOutline className="text-lg text-gray-400" />}
                   placeholder="last name"
@@ -78,12 +98,16 @@ const Register = () => {
               </Form.Item>
             </div>
             <Form.Item
-              name="phonenumber"
+              name="phone_number"
               rules={[
                 {
                   required: true,
-                  type: "number",
-                  message: "Please input a valid email!",
+                  message: "Phone number is required!",
+                },
+                {
+                  pattern: /^07\d{8}$/,
+                  message:
+                    "Phone number must start with 07 and be 10 digits long!",
                 },
               ]}
             >
@@ -91,6 +115,14 @@ const Register = () => {
                 prefix={<IoCallOutline className="text-lg text-gray-400" />}
                 placeholder="0741 780 970"
                 className="rounded-lg"
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                  const formatted = value.replace(
+                    /(\d{4})(\d{3})(\d{3})/,
+                    "$1 $2 $3"
+                  ); // Format as 0741 780 970
+                  e.target.value = formatted; // Update the input value
+                }}
               />
             </Form.Item>
 

@@ -23,6 +23,7 @@ import Singles from "../Components/pages/Singles.jsx";
 import Couples from "../Components/pages/Couples.jsx";
 import ValeReq from "../Components/pages/ValeReq.jsx";
 import ViewVale from "../Components/pages/ViewVale.jsx";
+import Profiles from "../Components/pages/Profiles.jsx";
 
 
 
@@ -43,12 +44,12 @@ export const routeConfig = [
   { path: "/viewvale/:id", element: ViewVale },
 
   // Protected Routes
-  // {
-  //   path: "/profile",
-  //   element: Profiles,
-  //   protected: true,
-  //   allowPendingAccess: true,
-  // },
+  {
+    path: "/profile",
+    element: Profiles,
+    protected: true,
+    allowPendingAccess: true,
+  },
   {
     path: "/couples",
     element: Couples,
