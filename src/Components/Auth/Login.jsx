@@ -33,9 +33,7 @@ const Login = () => {
       {/* Form Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center mb-8">
-            Welcome Back
-          </h1>
+          <h1 className="text-3xl font-bold text-center mb-8">Welcome Back</h1>
 
           <Form
             form={form}
@@ -83,12 +81,17 @@ const Login = () => {
             <Form.Item>
               <button
                 typeof="submit"
-                className="w-full h-12 bg-pink-500 hover:bg-pink-600  rounded-lg"
+                className="w-full text-lg h-12 bg-pink-500 hover:bg-pink-600  rounded-lg"
               >
                 Login
               </button>
             </Form.Item>
-
+            <div className="text-xl text-gray-600 mb-3">
+              Don't have an account yet? {" "}
+              <Link to="/register" className="text-pink-500 hover:text-pink-600">
+                Register
+              </Link>
+            </div>
             <div className="text-xl text-gray-600">
               <Link to="/forgot" className="text-pink-500 hover:text-pink-600">
                 Forgot password?
