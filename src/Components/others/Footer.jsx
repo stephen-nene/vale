@@ -3,7 +3,10 @@ import { FaHeart } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-rose-600 to-pink-700 text-white py-12">
+    <footer
+      className={`bg-pink-700 gradient-to-r from-rose-600 to-pink-700 dark:bg-black text-white py-12`}
+      // className="bg-pink-700  bg-gradient-to-r from-rose-600 to-pink-700 dark:bg-gray-950 text-white py-12"
+    >
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-12">
           <div>
@@ -17,34 +20,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">For You</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Singles
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Couples
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Success Stories
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Dating Tips
                 </a>
               </li>
@@ -54,34 +45,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Safety Tips
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Community Guidelines
                 </a>
               </li>
@@ -91,34 +70,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Help Center
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Safety Tips
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Contact Us
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className=" hover:text-rose-400 transition-colors"
-                >
+                <a href="#" className=" hover:text-rose-400 transition-colors">
                   Report an Issue
                 </a>
               </li>

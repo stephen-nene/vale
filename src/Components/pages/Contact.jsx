@@ -43,8 +43,8 @@ import {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
-      <header className="bg-gradient-to-r from-rose-400 to-red-400 text-white py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <header className="bg-gradient-to-r from-rose-400 to-red-400 text-white py-16 dark:from-rose-950 dark:to-red-950">
         <div className="container mx-auto text-center px-4">
           <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-xl max-w-2xl mx-auto">
@@ -60,25 +60,30 @@ import {
             <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contactInfo.map((info, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-                  <div className="text-rose-600 mb-4 text-2xl">
+                <div
+                  key={index}
+                  className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+                >
+                  <div className="text-rose-600 dark:text-rose-400 mb-4 text-2xl">
                     {info.icon}
                   </div>
                   <h3 className="font-bold mb-2">{info.title}</h3>
-                  <p className="text-gray-600 mb-4">{info.details}</p>
-                  <button className="text-rose-600 hover:text-rose-700 font-medium">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    {info.details}
+                  </p>
+                  <button className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-500 font-medium">
                     {info.action} →
                   </button>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 bg-rose-50 p-6 rounded-lg">
+            <div className="mt-8 bg-rose-50 dark:bg-rose-900 p-6 rounded-lg">
               <h3 className="font-bold mb-4">Office Location</h3>
               <div className="flex items-start space-x-4">
-                <FaMapMarkerAlt className="text-rose-600 text-xl flex-shrink-0 mt-1" />
+                <FaMapMarkerAlt className="text-rose-600 dark:text-rose-400 text-xl flex-shrink-0 mt-1" />
                 <div>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     123 Digital Avenue
                     <br />
                     Tech District
@@ -94,21 +99,21 @@ import {
           <div>
             <form
               onSubmit={handleSubmit}
-              className="bg-white p-8 shadow-lg rounded-lg"
+              className="bg-white dark:bg-gray-800 p-8 shadow-lg rounded-lg"
             >
               <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
 
               <div className="mb-6">
                 <label
                   htmlFor="name"
-                  className="block text-gray-700 font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 font-medium mb-2"
                 >
                   Full Name
                 </label>
                 <input
                   type="text"
                   id="name"
-                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200"
+                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
                   placeholder="Enter your full name"
                   required
                 />
@@ -117,14 +122,14 @@ import {
               <div className="mb-6">
                 <label
                   htmlFor="email"
-                  className="block text-gray-700 font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 font-medium mb-2"
                 >
                   Email Address
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200"
+                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
                   placeholder="Enter your email address"
                   required
                 />
@@ -133,14 +138,14 @@ import {
               <div className="mb-6">
                 <label
                   htmlFor="subject"
-                  className="block text-gray-700 font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 font-medium mb-2"
                 >
                   Subject
                 </label>
                 <input
                   type="text"
                   id="subject"
-                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200"
+                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
                   placeholder="What is this about?"
                   required
                 />
@@ -149,14 +154,14 @@ import {
               <div className="mb-6">
                 <label
                   htmlFor="message"
-                  className="block text-gray-700 font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 font-medium mb-2"
                 >
                   Message
                 </label>
                 <textarea
                   id="message"
                   rows="5"
-                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200"
+                  className="w-full border rounded-lg p-3 focus:border-rose-600 focus:ring focus:ring-rose-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
                   placeholder="Type your message here..."
                   required
                 ></textarea>
@@ -164,13 +169,13 @@ import {
 
               <button
                 type="submit"
-                className="w-full bg-rose-600 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition"
+                className="w-full bg-rose-600 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition dark:bg-rose-800 dark:hover:bg-rose-700"
               >
                 Send Message
               </button>
 
               {formStatus === "success" && (
-                <div className="mt-4 p-4 bg-rose-50 text-rose-700 rounded-lg">
+                <div className="mt-4 p-4 bg-rose-50 dark:bg-rose-900 text-rose-700 dark:text-rose-400 rounded-lg">
                   Thank you for your message! We'll get back to you soon.
                 </div>
               )}
