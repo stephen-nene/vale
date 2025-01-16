@@ -28,18 +28,19 @@ export async function resetPassword(data, navigate) {
   }
 }
 
-export const getCurrentUser = async (dispatch, navigate) => {
+export const getCurrentUser = async (dispatch) => {
   try {
-    const response = await apiClient.get("user");
+    const response = await apiClient.get("/auth/me");
 
-    if (response.status === 200) {
-      // showMessage("success", `welcome ${response.data.name}`, 1);
-      dispatch(loginAction(response.data));
+      if (response.status === 200) {
+        console.log(response.data)
+    //   showMessage("success", `welcome ${response.data.name}`, 1);
+      dispatch(loginAction(response?.data?.User));
       return response;
     }
   } catch (error) {
-    // console.log(error);
-    // showMessage("error", error?.response?.data?.detail || "An error occurred", 3);
+    console.log(error.response?.data);
+    showMessage("error", error?.response?.data?.detail || "An error occurred", 3);
     // throw error
   }
 };

@@ -10,7 +10,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userdata = useSelector((state) => state.user.userData);
-  console.log(userdata); 
 
   const onFinish = async (values) => {
     await serverLogin(values, navigate, dispatch);

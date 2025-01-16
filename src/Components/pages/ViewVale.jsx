@@ -12,10 +12,12 @@ import { MdMessage, MdCheck, MdClose } from "react-icons/md";
 import { GiClothes } from "react-icons/gi";
 import { Alert, message } from "antd";
 import emailjs from "@emailjs/browser";
+import apiClient from "../requests/apiClient";
 
 export default function ViewVale() {
   const { id } = useParams();
   const [response, setResponse] = useState({
+    senderName: "",
     email: "",
     message: "",
     number: "",
@@ -55,11 +57,7 @@ export default function ViewVale() {
     setActiveButton(status);
     setResponse((prevResponse) => ({ ...prevResponse, status }));
   };
-  const userId = import.meta.env.VITE_EMAILJS_USER_ID;
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLICKEY;
-  // console.log(templateId);
+
 
   const validateForm = () => {
     const phoneRegex = /^07\d{8}$/; // Regex for validating 10-digit numbers starting with '07'
@@ -96,20 +94,22 @@ export default function ViewVale() {
         message: response.message,
         status: response.status,
       };
-      const result = await emailjs.send(serviceId, templateId, templateParams, {
-        publicKey: publicKey,
-      });
-      // console.log("Email sent:", result.text);
+      // const result = await emailjs.send(serviceId, templateId, templateParams, {
+      //   publicKey: publicKey,
+      // });
+   const res = await apiClient.post("/email/send_custom_email", templateParams);
+
+      console.log("Email sent:", res?.data);
       message.success("Email sent successfully, Refreshing in 5....", 5);
-      setTimeout(() => {
-        navigate("/");
-      }, 5000);
-      setResponse({
-        email: "",
-        message: "",
-        number: "",
-        status: "accepted",
-      });
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 5000);
+      // setResponse({
+      //   email: "",
+      //   message: "",
+      //   number: "",
+      //   status: "accepted",
+      // });
 
       // Here you would make your API call
     } catch (error) {
@@ -122,7 +122,7 @@ export default function ViewVale() {
 
   return (
     <div className="p-6" style={{ maxWidth: "800px", margin: "0 auto" }}>
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="bg-white dark:bg-rose-900 p-6 rounded-lg shadow-md">
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-4">
             <FaHeart className="text-red-500 text-2xl" />
@@ -133,7 +133,7 @@ export default function ViewVale() {
             </h2>
           </div>
 
-          <div className="p-4 bg-pink-50 rounded-lg mb-6">
+          <div className="p-4 bg-pink-50 dark:bg-pink-950 rounded-lg mb-6">
             <h3 className="text-xl font-semibold flex items-center gap-2 mb-3">
               <FaUser /> From {request.requestData.senderName}
             </h3>
@@ -205,6 +205,22 @@ export default function ViewVale() {
           </div>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+            <h3 className="font-semibold">Your Name</h3>
+            <div className="flex gap-2">
+              <input
+                placeholder="steve nene"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:border-red-500"
+                type="text"
+                value={response.senderName}
+                required
+                onChange={(e) =>
+                  setResponse((prevResponse) => ({
+                    ...prevResponse,
+                    senderName: e.target.value,
+                  }))
+                }
+              />
+            </div>
             <h3 className="font-semibold">Your Whatsapp Number</h3>
             <div className="flex gap-2">
               <input

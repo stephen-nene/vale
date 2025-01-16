@@ -1,6 +1,6 @@
-import React, {  Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 import  ProtectedRoute from "../Components/others/ProtectedRoute.jsx"
 import Navbar from "../Components/others/Navbar.jsx";
@@ -9,12 +9,23 @@ import Footer from "../Components/others/Footer.jsx";
 
 import { routeConfig, Loader } from "./routes";
 import "../assets/css/App.css";
+import { getCurrentUser } from "../Components/requests/auth.js";
 
 
 export default function App() {
 
   const darkMode = useSelector((state) => state.app.darkMode);
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (loggedIn === false) {
+      const getUser = async () => {
+        await getCurrentUser(dispatch);
+      };
+      getUser();
+    }
+  }, []);
 
     const renderRoute = (route) => {
       const RouteComponent = route.element;
