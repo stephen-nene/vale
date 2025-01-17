@@ -19,7 +19,8 @@ import Landing from "../Components/pages/Landing.jsx";
 import Error404 from "../Components/others/Error404.jsx";
 import Contact from "../Components/pages/Contact.jsx";
 import About from "../Components/pages/About.jsx";
-import Singles from "../Components/pages/Singles.jsx";
+import Requests from "../Components/pages/Requests.jsx";
+import ViewRequest from "../Components/pages/ViewRequest.jsx";
 import Couples from "../Components/pages/Couples.jsx";
 import ValeReq from "../Components/pages/ValeReq.jsx";
 import ViewVale from "../Components/pages/ViewVale.jsx";
@@ -38,7 +39,8 @@ export const routeConfig = [
   { path: "/reset/:token", element: AuthRoutes.Reset },
 
   { path: "/contact", element: Contact },
-  { path: "/singles", element: Singles },
+  { path: "/requests", element: Requests },
+  { path: "/request/:id", element: ViewRequest },
   { path: "/about", element: About },
   { path: "/valereq", element: ValeReq },
   { path: "/viewvale/:id", element: ViewVale },

@@ -54,10 +54,10 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 text-lg">
             <NavLink
-              to="/singles"
+              to="/requests"
               className="hover:text-pink-200 transition-colors"
             >
-              Singles
+              Requests
             </NavLink>
             <NavLink
               to="/couples"
@@ -122,11 +122,11 @@ export default function Navbar() {
             className="md:hidden fixed top-19 left-0 right-0 bg-gradient-to-r from-rose-600 to-pink-700 dark:from-gray-900 dark:to-gray-950 text-white py-4 px-6 z-50"
           >
             <NavLink
-              to="/singles"
+              to="/requests"
               className="block py-2 hover:text-pink-200 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Singles
+              Requests
             </NavLink>
             <NavLink
               to="/couples"

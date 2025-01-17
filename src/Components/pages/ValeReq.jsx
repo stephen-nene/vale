@@ -32,6 +32,7 @@ const ValeReqForm = () => {
     theme: "romantic",
     additionalInfo: "",
   });
+// create for me an object in js with data that matches this model
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
