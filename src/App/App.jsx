@@ -65,7 +65,7 @@ export default function App() {
     return (
       <div className={`${darkMode ? "dark " : ""} `}>
         <Navbar darkMode={darkMode} />
-        <div className="bg-pink-50  dark:text-white min-h-screen ">
+        <div className="bg-pink-50 dark:bg-rose-950  dark:text-white min-h-screen ">
           <Routes>{routeConfig.map(renderRoute)}</Routes>
         </div>
         <Footer />

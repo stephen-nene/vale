@@ -1,6 +1,6 @@
 import apiClient from "./apiClient";
 import { message } from "antd";
-import {loginAction} from "../../store/actions/userAction"
+import { loginAction, logoutAction } from "../../store/actions/userAction";
 
 export function showMessage(type, content, duration) {
   return message[type]({
@@ -54,7 +54,7 @@ export const serverLogin = async (values, navigate, dispatch) => {
       showMessage("success", response?.data?.message, 2);
       dispatch(loginAction(response?.data?.User));
       console.log(response?.data);
-    //   navigate("/dashboard");
+      navigate("/profile");
       return response.data;
     } else {
       showMessage("error", "Login Failed", 2);
@@ -100,7 +100,7 @@ export const serverSignup = async (values, navigate,setError) => {
 export const serverLogout = async (dispatch, navigate) => {
   console.log("Server Logout");
   try {
-    const response = await apiClient.post("/logout");
+    const response = await apiClient.post("/auth/logout");
     if (response.status === 200) {
       showMessage("success", response?.data?.message, 2);
       // console.log("logout",response)

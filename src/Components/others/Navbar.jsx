@@ -53,7 +53,7 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 text-lg">
-            <NavLink
+            {/* <NavLink
               to="/requests"
               className="hover:text-pink-200 transition-colors"
             >
@@ -70,7 +70,15 @@ export default function Navbar() {
               className="hover:text-pink-200 transition-colors"
             >
               Valentines?
+            </NavLink> */}
+
+            <NavLink
+              to="/features"
+              className="hover:text-pink-200 transition-colors"
+            >
+              Features
             </NavLink>
+
             <NavLink
               to="/about"
               className="hover:text-pink-200 transition-colors"

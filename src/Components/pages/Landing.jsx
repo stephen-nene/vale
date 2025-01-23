@@ -208,3 +208,16 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
+        {
+          /* Call to Action */
+        }
+        {
+          /* <div className="mt-16 text-center">
+          <button className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+            Start Your Love Journey
+            <FaHeart className="inline-block ml-2 -mb-1" />
+          </button>
+        </div> */
+        }
+

@@ -9,11 +9,7 @@ const AuthRoutes = {
   Activate: lazy(() => import("../Components/Auth/Activate.jsx")),
 };
 
-// Lazy loaded components
-const Login = lazy(() => import("../Components/Auth/Login.jsx"));
-const Signup = lazy(() => import("../Components/Auth/Signup.jsx"));
-const Reset = lazy(() => import("../Components/Auth/Reset.jsx"));
-const Forgot = lazy(() => import("../Components/Auth/Forgot.jsx"));
+
 
 import Landing from "../Components/pages/Landing.jsx";
 import Error404 from "../Components/others/Error404.jsx";
@@ -25,6 +21,7 @@ import Couples from "../Components/pages/Couples.jsx";
 import ValeReq from "../Components/pages/ValeReq.jsx";
 import ViewVale from "../Components/pages/ViewVale.jsx";
 import Profiles from "../Components/pages/Profiles.jsx";
+import Features from "../Components/pages/Features.jsx";
 
 
 
@@ -44,6 +41,7 @@ export const routeConfig = [
   { path: "/about", element: About },
   { path: "/valereq", element: ValeReq },
   { path: "/viewvale/:id", element: ViewVale },
+  { path: "/features", element: Features },
 
   // Protected Routes
   {

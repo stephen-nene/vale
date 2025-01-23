@@ -45,10 +45,30 @@ export default function Singles() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-4xl mx-auto py-10 px-4">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold text-center mb-6 text-rose-700">
           Requests
         </h1>
-
+        <div className="p-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">How It Works</h2>
+              <ul className="space-y-4">
+                <li>📊 Comprehensive Personality Assessment</li>
+                <li>🧠 Advanced Compatibility Algorithms</li>
+                <li>🔍 Deep Learning Match Predictions</li>
+                <li>🤝 Continuous Refinement</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Key Features</h2>
+              <ul className="space-y-4">
+                <li>✨ Emotional Intelligence Analysis</li>
+                <li>💕 Interest-Based Matching</li>
+                <li>🌐 Multi-Dimensional Compatibility</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div className="mb-6 flex justify-between items-center">
           <button
             onClick={() => setnewReq(true)}
