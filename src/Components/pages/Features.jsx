@@ -61,7 +61,7 @@ export default function Features() {
       title: "Speed Dating",
       description: "5-minute video dates with automatic rotation system",
       color: "text-purple-500",
-      handler: () => message.warning("Coming Soon!"),
+      route: '/speeddating'
     },
     {
       icon: <MdOutlinePsychology className="w-8 h-8" />,

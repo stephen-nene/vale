@@ -1,0 +1,184 @@
+{
+    "participants": [
+        {
+            "id": 1,
+            "name": "User 1",
+            "avatar": "https://randomuser.me/api/portraits/men/1.jpg",
+            "conversations": [
+                {
+                    "question": "What's your favorite type of music?",
+                    "answers": {
+                        "participant": "I love jazz. It relaxes me.",
+                        "currentUser": "I enjoy pop and R&B. They're my go-to!"
+                    }
+                },
+                {
+                    "question": "What's your dream travel destination?",
+                    "answers": {
+                        "participant": "Bali! I've always wanted to visit.",
+                        "currentUser": "Italy. The food and history are amazing."
+                    }
+                },
+                {
+                    "question": "What's your favorite hobby?",
+                    "answers": {
+                        "participant": "I like playing the piano in my free time.",
+                        "currentUser": "I’m really into photography and capturing nature."
+                    }
+                },
+                {
+                    "question": "What’s the most recent movie you watched?",
+                    "answers": {
+                        "participant": "I watched 'The Shawshank Redemption' last week.",
+                        "currentUser": "I saw 'Avatar: The Way of Water' recently."
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "User 2",
+            "avatar": "https://randomuser.me/api/portraits/women/1.jpg",
+            "conversations": [
+                {
+                    "question": "What's your favorite weekend activity?",
+                    "answers": {
+                        "participant": "I love painting and sipping tea.",
+                        "currentUser": "I'm into hiking and exploring new cafes."
+                    }
+                },
+                {
+                    "question": "Do you prefer cats or dogs?",
+                    "answers": {
+                        "participant": "Dogs! They're so loyal.",
+                        "currentUser": "Cats. They're independent and cuddly."
+                    }
+                },
+                {
+                    "question": "What’s your go-to comfort food?",
+                    "answers": {
+                        "participant": "Mac and cheese. Always hits the spot.",
+                        "currentUser": "I love a big bowl of ramen."
+                    }
+                },
+                {
+                    "question": "If you could live anywhere in the world, where would it be?",
+                    "answers": {
+                        "participant": "Maybe somewhere in New Zealand, with all the greenery!",
+                        "currentUser": "I'd love to live in Paris, it’s so romantic!"
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "User 3",
+            "avatar": "https://randomuser.me/api/portraits/men/2.jpg",
+            "conversations": [
+                {
+                    "question": "What's your favorite childhood memory?",
+                    "answers": {
+                        "participant": "Going to the beach with my family.",
+                        "currentUser": "Camping under the stars with friends."
+                    }
+                },
+                {
+                    "question": "If you could have any superpower, what would it be?",
+                    "answers": {
+                        "participant": "Teleportation! No more traffic.",
+                        "currentUser": "Flying. Imagine seeing the world from above!"
+                    }
+                },
+                {
+                    "question": "What’s your favorite book?",
+                    "answers": {
+                        "participant": "I love '1984' by George Orwell.",
+                        "currentUser": "I'm really into fantasy books like 'Harry Potter'."
+                    }
+                },
+                {
+                    "question": "What's the best piece of advice you've ever received?",
+                    "answers": {
+                        "participant": "Always be kind to others. You never know what they’re going through.",
+                        "currentUser": "Take risks. You’ll never know what’s possible unless you try."
+                    }
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "User 4",
+            "avatar": "https://randomuser.me/api/portraits/men/3.jpg",
+            "conversations": [
+                {
+                    "question": "What’s your favorite sport to watch?",
+                    "answers": {
+                        "participant": "I love watching football, especially the World Cup!",
+                        "currentUser": "I'm more into basketball, NBA games are always exciting."
+                    }
+                },
+                {
+                    "question": "What's your idea of a perfect day?",
+                    "answers": {
+                        "participant": "Spending the day on a mountain trail, hiking and relaxing.",
+                        "currentUser": "A perfect day for me is a chill day at the beach with friends."
+                    }
+                },
+                {
+                    "question": "What's one thing you've always wanted to learn?",
+                    "answers": {
+                        "participant": "I've always wanted to learn how to play the guitar.",
+                        "currentUser": "I'd love to learn how to cook professionally."
+                    }
+                },
+                {
+                    "question": "What’s your favorite holiday and why?",
+                    "answers": {
+                        "participant": "Christmas, I love the festive vibes and spending time with family.",
+                        "currentUser": "I really enjoy Halloween, it’s so fun to dress up and be creative."
+                    }
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "User 5",
+            "avatar": "https://randomuser.me/api/portraits/women/3.jpg",
+            "conversations": [
+                {
+                    "question": "What's your favorite season?",
+                    "answers": {
+                        "participant": "I love autumn, with all the cozy sweaters and falling leaves.",
+                        "currentUser": "Summer is my favorite, I love the sun and outdoor activities."
+                    }
+                },
+                {
+                    "question": "If you could meet any historical figure, who would it be?",
+                    "answers": {
+                        "participant": "I’d love to meet Albert Einstein, such an interesting mind!",
+                        "currentUser": "Meeting Cleopatra would be amazing, such a powerful queen."
+                    }
+                },
+                {
+                    "question": "What’s your go-to karaoke song?",
+                    "answers": {
+                        "participant": "I’m all about ‘Bohemian Rhapsody’!",
+                        "currentUser": "I usually go for ‘I Will Survive,’ it’s always a hit."
+                    }
+                },
+                {
+                    "question": "What’s your biggest pet peeve?",
+                    "answers": {
+                        "participant": "People chewing loudly. It drives me crazy.",
+                        "currentUser": "I can’t stand when people are always late."
+                    }
+                }
+            ]
+        }
+    ],
+    "currentUser": {
+        "id": "me",
+        "name": "You",
+        "avatar": "https://randomuser.me/api/portraits/women/2.jpg"
+    }
+}

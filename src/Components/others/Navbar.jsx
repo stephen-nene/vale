@@ -130,25 +130,10 @@ export default function Navbar() {
             className="md:hidden fixed top-19 left-0 right-0 bg-gradient-to-r from-rose-600 to-pink-700 dark:from-gray-900 dark:to-gray-950 text-white py-4 px-6 z-50"
           >
             <NavLink
-              to="/requests"
-              className="block py-2 hover:text-pink-200 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              to="/features"
+              className="hover:text-pink-200 transition-colors"
             >
-              Requests
-            </NavLink>
-            <NavLink
-              to="/couples"
-              className="block py-2 hover:text-pink-200 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Couples
-            </NavLink>
-            <NavLink
-              to="/valereq"
-              className="block py-2 hover:text-pink-200 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Valentines?
+              Features
             </NavLink>
             <NavLink
               to="/about"

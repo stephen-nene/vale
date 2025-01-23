@@ -101,21 +101,23 @@ export default function Profiles() {
           <div className="space-y-6">
             <div className="flex items-center justify-center mb-6">
               <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                {userData.profile_image ? (
+                {/* {!userData.profile_image ? ( */}
                   <img
-                    src={userData.profile_image}
+                    src={
+                      userData.profile_image ||
+                      "https://randomuser.me/api/portraits/men/44.jpg"
+                    }
                     alt="Profile"
                     className="w-full h-full rounded-full object-cover"
                   />
-                ) : (
-                  <FiUser className="w-16 h-16 text-gray-400 dark:text-gray-500" />
-                )}
+                {/*  ) : (
+                 <FiUser className="w-16 h-16 text-gray-400 dark:text-gray-500" />
+                )} */}
               </div>
             </div>
 
             {/* Non-editable Fields */}
             <div className="space-y-4">
-
               <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-1">
                   <FiToggleRight className="w-4 h-4" />
