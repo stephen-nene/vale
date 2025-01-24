@@ -11,6 +11,7 @@ const Register = () => {
   const [error, setError] = useState();
 
   const onFinish = async (values) => {
+    // console.log("Failed:", values);
     await serverSignup(values, navigate, setError);
   };
   const onFinishFailed = (errorInfo) => {
@@ -40,23 +41,24 @@ const Register = () => {
             Create Account
           </h1>
           <div className="my-3">
-
-          {error?.length > 0 && (
-            <Alert
-              message="Signup Errors"
-              showIcon
-              description={
-                <ul>
-                  {error.map((error, index) => (
-                    <li className="mb-1" key={index}>{error}</li>
-                  ))}
-                </ul>
-              }
-              type="error"
-              closable
-              onClose={() => setError([])}
-            />
-          )}
+            {error?.length > 0 && (
+              <Alert
+                message="Signup Errors"
+                showIcon
+                description={
+                  <ul>
+                    {error.map((error, index) => (
+                      <li className="mb-1" key={index}>
+                        {error}
+                      </li>
+                    ))}
+                  </ul>
+                }
+                type="error"
+                closable
+                onClose={() => setError([])}
+              />
+            )}
           </div>
           <Form
             form={form}
@@ -100,10 +102,6 @@ const Register = () => {
             <Form.Item
               name="phone_number"
               rules={[
-                {
-                  required: true,
-                  message: "Phone number is required!",
-                },
                 {
                   pattern: /^07\d{8}$/,
                   message:
