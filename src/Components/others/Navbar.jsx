@@ -6,15 +6,16 @@ import { setDarkMode } from '../../store/actions/appAction.js'
 import { useDispatch,useSelector } from "react-redux";
 
 
-export default function Navbar() {
+export default function Navbar({ loggedIn }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const mobileMenuRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const darkMode = useSelector((state) => state.app.darkMode);
   const dispatch = useDispatch();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
-  };
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -91,12 +92,14 @@ export default function Navbar() {
             >
               Contact
             </NavLink>
-            <NavLink
-              to="/profile"
-              className="hover:text-pink-200 transition-colors"
-            >
-              Profile
-            </NavLink>
+            {loggedIn?.loggedIn && (
+              <NavLink
+                to="/profile"
+                className="hover:text-pink-200 transition-colors"
+              >
+                Profile
+              </NavLink>
+            )}
           </div>
 
           {/* Mobile Menu Icon */}
@@ -149,6 +152,14 @@ export default function Navbar() {
             >
               Contact
             </NavLink>
+            {loggedIn?.loggedIn && (
+              <NavLink
+                to="/profile"
+                className="hover:text-pink-200 transition-colors"
+              >
+                Profile
+              </NavLink>
+            )}
             <Link
               onClick={() => setIsMobileMenuOpen(false)}
               to="/login"

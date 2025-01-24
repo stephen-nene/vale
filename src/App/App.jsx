@@ -23,11 +23,11 @@ function ScrollToTop() {
 
 export default function App() {
   const darkMode = useSelector((state) => state.app.darkMode);
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const loggedIn = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loggedIn === false) {
+    if (loggedIn?.loggedIn === false) {
       const getUser = async () => {
         await getCurrentUser(dispatch);
       };
@@ -72,7 +72,7 @@ export default function App() {
 
   return (
     <div className={`${darkMode ? "dark " : ""} `}>
-      <Navbar darkMode={darkMode} />
+      <Navbar loggedIn={loggedIn} />
       <div className="bg-pink-50 dark:bg-rose-950  dark:text-white min-h-screen ">
         {/* Add ScrollToTop Component */}
         <ScrollToTop />
