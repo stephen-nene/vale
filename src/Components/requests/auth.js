@@ -61,7 +61,7 @@ export const serverLogin = async (values, navigate, dispatch) => {
     //   throw new Error("Login failed");
     }
   } catch (error) {
-    // console.error("Error response:", error.response?.data?.detail);
+    console.error("Error response:", error.response?.data);
     showMessage("error", error?.response?.data?.detail, 3);
   } finally {
     loadingMessage();
