@@ -1,6 +1,7 @@
 import React from "react";
-import { Form, Input, Select, InputNumber, Button } from "antd";
+import { Form, Input, Select, InputNumber, Button,Breadcrumb } from "antd";
 import { FiSend } from "react-icons/fi";
+import {Link} from 'react-router-dom'
 
 export default function CreateSpeedDate() {
   const [form] = Form.useForm();
@@ -11,6 +12,35 @@ export default function CreateSpeedDate() {
 
   return (
     <div className="p-6 dark:bg -gray-800 dark:text-white">
+      <Breadcrumb
+        className="dark:text-white mb-4"
+        items={[
+          {
+            title: (
+              <Link className="dark:text-white" to="/">
+                Home
+              </Link>
+            ),
+          },
+          {
+            title: (
+              <Link className="dark:text-white mb-4" to="/features">
+                Features
+              </Link>
+            ),
+          },
+          {
+            title: (
+              <Link className="dark:text-white mb-4" to="/speeddating">
+                Speeddating
+              </Link>
+            ),
+          },
+          {
+            title: <p className="dark:text-white">Create</p>,
+          },
+        ]}
+      />
       <h1 className="text-2xl font-bold mb-4">Create Speed Date</h1>
       <Form
         form={form}
@@ -18,6 +48,11 @@ export default function CreateSpeedDate() {
         onFinish={onFinish}
         className="space-y-4"
         size="large"
+        defaultValue={{
+          date_type: "public",
+          duration: 30,
+          max_participants: 10,
+        }}
       >
         {/* Title */}
         <Form.Item
@@ -132,7 +167,10 @@ export default function CreateSpeedDate() {
           label="Duration (minutes)"
           name="duration"
           rules={[
-            { required: true, message: "Please enter the duration in minutes" },
+            {
+              required: false,
+              message: "Please enter the duration in minutes",
+            },
             {
               type: "number",
               min: 1,

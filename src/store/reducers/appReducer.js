@@ -1,6 +1,7 @@
 // appReducer.js
 const initialState = {
   darkMode: localStorage.getItem("darkMode") === "true",
+  speedDates: [],
 };
 
 const appReducer = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const appReducer = (state = initialState, action) => {
         ...state,
         darkMode: !state.darkMode,
       };
+    case 'SET_SPEED_DATES':
+      return {
+       ...state,
+        speedDates: action.payload,
+      };
+
 
     default:
       return state;

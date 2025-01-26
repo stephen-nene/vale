@@ -27,23 +27,25 @@ const ViewModal = ({
           Close
         </Button>,
         <Button key="submit" type="primary" icon={<HeartOutlined />}>
-          <Link to={`/speeddating/${selectedRequest.id}`}>Request to Connect</Link>
+          <Link to={`/speeddating/${selectedRequest.id}`}>
+            Request to Connect
+          </Link>
         </Button>,
       ]}
       width={600}
     >
       <div className="flex items-center mb-6">
         <Avatar
-          src={selectedRequest.user?.profilePic}
+          src={selectedRequest.creator?.profilePic}
           size={100}
           icon={<UserOutlined />}
           className="mr-6"
         />
         <div>
           <h2 className="text-2xl font-bold text-rose-700">
-            {selectedRequest.user.name}
+            {selectedRequest.creator?.username}
           </h2>
-          <p className="text-gray-600">Age: {selectedRequest.user.age}</p>
+          <p className="text-gray-600">Age: {selectedRequest.creator.age}</p>
         </div>
       </div>
 
@@ -57,7 +59,7 @@ const ViewModal = ({
           }
         >
           <div className="space-x-2">
-            {selectedRequest.interests.map((interest) => (
+            {selectedRequest?.interests?.map((interest) => (
               <Tag key={interest} color="red">
                 {interest}
               </Tag>
@@ -84,7 +86,7 @@ const ViewModal = ({
             </span>
           }
         >
-          <Tag color="blue">{selectedRequest.type}</Tag>
+          <Tag color="blue">{selectedRequest.date_type}</Tag>
         </Descriptions.Item>
 
         <Descriptions.Item

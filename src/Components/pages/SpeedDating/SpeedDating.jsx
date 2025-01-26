@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Avatar, Tag, message, FloatButton } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Avatar, Tag, message, FloatButton, Breadcrumb } from "antd";
 import {
   PlusOutlined,
   HeartOutlined,
@@ -10,174 +10,102 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import ViewModal from "./ViewSpeedDate";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+
+import { getSpeedDates } from "../../requests/requests";
 
 export default function SpeedDating() {
   const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
+  // const [speeddates, setSpeeddates] = useState([])
   const user = useSelector((state) => state.user);
+  const speeddates = useSelector((state) => state.app.speedDates);
+  const dispatch = useDispatch();
 
-  const [publicRequests, setPublicRequests] = useState([
-    {
-      id: 1,
-      type: "public",
-      title: "Romantic Evenings for Singles",
-      description: "Join us for a night of fun and meaningful connections!",
-      user: {
-        id: "user-123",
-        age: 28,
-        name: "John Doe",
-        profilePic: "https://randomuser.me/api/portraits/men/44.jpg",
-      },
-      durationPerDate: 5,
-      preferences: {
-        ageRange: [25, 35],
-        genderPreferences: ["male", "female", "non-binary"],
-        interests: ["travel", "movies", "cooking"],
-      },
-      interests: ["Travel", "Photography", "Music"],
-      status: "Open",
-      availability: "Weekend Evening",
-      maxParticipants: 20,
-      currentParticipants: 15,
-      joinLink: "https://speeddating.com/join/sd-001",
-      createdAt: "2023-10-30T12:00:00Z",
+const [publicRequests, setPublicRequests] = useState([
+  {
+    id: "1",
+    title: "Romantic Evenings for Singles",
+    description: "Join us for a night of fun and meaningful connections!",
+    creator: {
+      id: "user-123",
+      name: "John Doe",
+      age: 28,
+      profilePic: "https://randomuser.me/api/portraits/men/44.jpg",
     },
-    {
-      id: 2,
-      type: "public",
-      title: "Tech Enthusiasts Speed Dating",
-      description: "For those who love coding, gadgets, and innovation!",
-      user: {
-        id: "user-456",
-        age: 32,
-        name: "Jane Smith",
-        profilePic: "https://randomuser.me/api/portraits/women/44.jpg",
+    participant: [
+      {
+        id: "user-124",
+        name: "Alice",
+        profilePic: "https://randomuser.me/api/portraits/women/20.jpg",
       },
-      durationPerDate: 6,
-      preferences: {
-        ageRange: [20, 30],
-        genderPreferences: ["any"],
-        interests: ["tech", "coding", "gaming"],
+      {
+        id: "user-125",
+        name: "Bob",
+        profilePic: "https://randomuser.me/api/portraits/men/32.jpg",
       },
-      interests: ["Hiking", "Cooking", "Tech"],
-      status: "Open",
-      availability: "Weekday Afternoon",
-      maxParticipants: 15,
-      currentParticipants: 12,
-      joinLink: "https://speeddating.com/join/sd-002",
-      createdAt: "2023-10-29T09:30:00Z",
+    ],
+    status: "Open",
+    date_type: "public",
+    availability: "Weekend Evening",
+    max_participants: 20,
+    max_questions: 10,
+    duration: 10,
+    createdAt: "2023-10-30T12:00:00Z",
+  },
+  {
+    id: "2",
+    title: "Tech Enthusiasts Speed Dating",
+    description: "For those who love coding, gadgets, and innovation!",
+    creator: {
+      id: "user-456",
+      name: "Jane Smith",
+      age: 32,
+      profilePic: "https://randomuser.me/api/portraits/women/44.jpg",
     },
-    {
-      id: 3,
-      type: "public",
-      title: "Art Lovers Speed Dating",
-      description: "Connect with fellow art enthusiasts and creatives!",
-      user: {
-        id: "user-789",
-        age: 25,
-        name: "Alex Johnson",
-        profilePic: "https://randomuser.me/api/portraits/women/64.jpg",
+    participant: [
+      {
+        id: "user-457",
+        name: "David",
+        profilePic: "https://randomuser.me/api/portraits/men/30.jpg",
       },
-      durationPerDate: 7,
-      preferences: {
-        ageRange: [22, 40],
-        genderPreferences: ["any"],
-        interests: ["art", "yoga", "indie films"],
+      {
+        id: "user-458",
+        name: "Emma",
+        profilePic: "https://randomuser.me/api/portraits/women/35.jpg",
       },
-      interests: ["Art", "Yoga", "Indie Films"],
-      status: "In Progress",
-      availability: "Weekend Brunch",
-      maxParticipants: 10,
-      currentParticipants: 8,
-      joinLink: "https://speeddating.com/join/sd-003",
-      createdAt: "2023-10-28T14:45:00Z",
-    },
-    {
-      id: 4,
-      type: "public",
-      title: "Outdoor Adventures Speed Dating",
-      description:
-        "For those who love hiking, camping, and the great outdoors!",
-      user: {
-        id: "user-101",
-        age: 30,
-        name: "Michael Brown",
-        profilePic: "https://randomuser.me/api/portraits/men/34.jpg",
-      },
-      durationPerDate: 8,
-      preferences: {
-        ageRange: [25, 40],
-        genderPreferences: ["any"],
-        interests: ["hiking", "camping", "nature"],
-      },
-      interests: ["Hiking", "Camping", "Photography"],
-      status: "Open",
-      availability: "Weekend Morning",
-      maxParticipants: 12,
-      currentParticipants: 10,
-      joinLink: "https://speeddating.com/join/sd-004",
-      createdAt: "2023-10-27T10:15:00Z",
-    },
-    {
-      id: 5,
-      type: "public",
-      title: "Book Lovers Speed Dating",
-      description: "Find your literary soulmate!",
-      user: {
-        id: "user-202",
-        age: 29,
-        name: "Laura Wilson",
-        profilePic: "https://randomuser.me/api/portraits/women/24.jpg",
-      },
-      durationPerDate: 6,
-      preferences: {
-        ageRange: [24, 34],
-        genderPreferences: ["any"],
-        interests: ["books", "writing", "coffee"],
-      },
-      interests: ["Books", "Writing", "Coffee"],
-      status: "Open",
-      availability: "Weekday Evening",
-      maxParticipants: 15,
-      currentParticipants: 11,
-      joinLink: "https://speeddating.com/join/sd-005",
-      createdAt: "2023-10-26T16:20:00Z",
-    },
-    {
-      id: 6,
-      type: "public",
-      title: "Gamers Speed Dating",
-      description: "Level up your love life with fellow gamers!",
-      user: {
-        id: "user-303",
-        age: 27,
-        name: "Daniel Lee",
-        profilePic: "https://randomuser.me/api/portraits/men/54.jpg",
-      },
-      durationPerDate: 7,
-      preferences: {
-        ageRange: [20, 30],
-        genderPreferences: ["any"],
-        interests: ["gaming", "tech", "anime"],
-      },
-      interests: ["Gaming", "Tech", "Anime"],
-      status: "Open",
-      availability: "Weekend Night",
-      maxParticipants: 10,
-      currentParticipants: 7,
-      joinLink: "https://speeddating.com/join/sd-006",
-      createdAt: "2023-10-25T18:30:00Z",
-    },
-  ]);
+    ],
+    status: "Open",
+    date_type: "public",
+    availability: "Weekday Afternoon",
+    max_participants: 15,
+    max_questions: 10,
+    duration: 10,
+    createdAt: "2023-10-29T09:30:00Z",
+  },
+  // Add more objects as needed
+]);
 
-  const viewPrivateRequest = () => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getSpeedDates(dispatch);
+
+
+    };
+    if (speeddates.length >= 0) {
+      fetchData();
+    }
+  }, []);
+
+  const viewPrivateRequest = async () => {
     if (user.loggedIn === true) {
-      message.info("Coming soon, this feature is not yet implemented.");
+      await getSpeedDates(dispatch, true)
     } else {
       message.warning("You need to be logged in to view private requests. ");
     }
   };
+
   const handleViewRequest = (request) => {
     setSelectedRequest(request);
     setIsRequestModalVisible(true);
@@ -185,6 +113,28 @@ export default function SpeedDating() {
 
   return (
     <div className="container mx-auto p-8">
+      <Breadcrumb
+        className="dark:text-white mb-4"
+        items={[
+          {
+            title: (
+              <Link className="dark:text-white" to="/">
+                Home
+              </Link>
+            ),
+          },
+          {
+            title: (
+              <Link className="dark:text-white mb-4" to="/features">
+                Features
+              </Link>
+            ),
+          },
+          {
+            title: <p className="dark:text-white">Speeddating</p>,
+          },
+        ]}
+      />
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-rose-700">
           Speed Dating Central
@@ -219,6 +169,7 @@ export default function SpeedDating() {
           </ul>
         </div>
       </div>
+
       <div className="my-5">
         <h2 className="text-2xl font-bold text-rose-700 mb-6">
           Active Speed Dating Requests
@@ -230,60 +181,66 @@ export default function SpeedDating() {
           Private Date Requests
         </button>
       </div>
-      <div className="grid md:grid-cols-3 gap-6">
-        {publicRequests.map((request) => (
-          <div
-            key={request.id}
-            className="bg-rose-100 dark:bg-black p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
-          >
-            <div className="flex items-center mb-4">
-              <Avatar
-                src={request.user?.profilePic}
-                size={64}
-                icon={<UserOutlined />}
-                className="mr-4"
-              />
-              <div>
-                <h3 className="text-xl font-semibold">{request.user.name}</h3>
-                <p className="text-gray-500">Age: {request.user.age}</p>
-              </div>
-            </div>
 
-            <div className="mb-4">
-              <div className="my-3">
-                <h3 className="text-lg font-medium ">{request.title}</h3>
-                <p className="text-sm text-gray-500"> {request.description}</p>
-              </div>
-              <h4 className="font-semibold mb-2">Interests</h4>
-              <div className="space-x-2">
-                {request.interests.map((interest) => (
-                  <Tag key={interest} color="red">
-                    {interest}
-                  </Tag>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center my-5">
-              <Tag
-                icon={<StarOutlined />}
-                color={request.status === "Open" ? "green" : "orange"}
-              >
-                {request.status}
-              </Tag>
-              <span className="text-gray-500">{request.availability}</span>
-            </div>
-            <Button
-              size="large"
-              type="primary"
-              icon={<HeartOutlined />}
-              onClick={() => handleViewRequest(request)}
+      {speeddates.length <= 0 ? (
+        <p className="text-center text-gray-500">
+          No active speeddating requests found.
+        </p>
+      ) : (
+        <div className="grid md:grid-cols-3 gap-6">
+          {speeddates.map((request) => (
+            <div
+              key={request.id}
+              className="bg-rose-100 dark:bg-black p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
             >
-              View
-            </Button>
-          </div>
-        ))}
-      </div>
+              {/* Creator Info */}
+              <div className="flex items-center mb-4">
+                <Avatar
+                  src={request.creator?.profilePic}
+                  size={64}
+                  icon={<UserOutlined />}
+                  className="mr-4"
+                />
+                <div>
+                  <h3 className="text-xl font-semibold">
+                    {request.creator.username}
+                  </h3>
+                  <p className="text-gray-500">Age: {request.creator.age}</p>
+                </div>
+              </div>
+
+              {/* Speed Date Details */}
+              <div className="mb-4">
+                <div className="my-3">
+                  <h3 className="text-lg font-medium">{request.title}</h3>
+                  <p className="text-sm text-gray-500">{request.description}</p>
+                </div>
+              </div>
+
+              {/* Status and Availability */}
+              <div className="flex justify-between items-center my-5">
+                <Tag
+                  icon={<StarOutlined />}
+                  color={request.date_type === "private" ? "green" : "orange"}
+                >
+                  {request.date_type}
+                </Tag>
+                <span className="text-gray-500">{request.availability}</span>
+              </div>
+
+              {/* View Button */}
+              <Button
+                size="large"
+                type="primary"
+                icon={<HeartOutlined />}
+                onClick={() => handleViewRequest(request)}
+              >
+                View
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
 
       <ViewModal
         isRequestModalVisible={isRequestModalVisible}
