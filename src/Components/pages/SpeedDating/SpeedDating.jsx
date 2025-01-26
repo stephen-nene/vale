@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import ViewModal from "./ViewSpeedDate";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { getSpeedDates } from "../../requests/requests";
 
@@ -22,85 +22,20 @@ export default function SpeedDating() {
   const speeddates = useSelector((state) => state.app.speedDates);
   const dispatch = useDispatch();
 
-const [publicRequests, setPublicRequests] = useState([
-  {
-    id: "1",
-    title: "Romantic Evenings for Singles",
-    description: "Join us for a night of fun and meaningful connections!",
-    creator: {
-      id: "user-123",
-      name: "John Doe",
-      age: 28,
-      profilePic: "https://randomuser.me/api/portraits/men/44.jpg",
-    },
-    participant: [
-      {
-        id: "user-124",
-        name: "Alice",
-        profilePic: "https://randomuser.me/api/portraits/women/20.jpg",
-      },
-      {
-        id: "user-125",
-        name: "Bob",
-        profilePic: "https://randomuser.me/api/portraits/men/32.jpg",
-      },
-    ],
-    status: "Open",
-    date_type: "public",
-    availability: "Weekend Evening",
-    max_participants: 20,
-    max_questions: 10,
-    duration: 10,
-    createdAt: "2023-10-30T12:00:00Z",
-  },
-  {
-    id: "2",
-    title: "Tech Enthusiasts Speed Dating",
-    description: "For those who love coding, gadgets, and innovation!",
-    creator: {
-      id: "user-456",
-      name: "Jane Smith",
-      age: 32,
-      profilePic: "https://randomuser.me/api/portraits/women/44.jpg",
-    },
-    participant: [
-      {
-        id: "user-457",
-        name: "David",
-        profilePic: "https://randomuser.me/api/portraits/men/30.jpg",
-      },
-      {
-        id: "user-458",
-        name: "Emma",
-        profilePic: "https://randomuser.me/api/portraits/women/35.jpg",
-      },
-    ],
-    status: "Open",
-    date_type: "public",
-    availability: "Weekday Afternoon",
-    max_participants: 15,
-    max_questions: 10,
-    duration: 10,
-    createdAt: "2023-10-29T09:30:00Z",
-  },
-  // Add more objects as needed
-]);
-
+  const [isPublic, setIsPublic] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getSpeedDates(dispatch);
-
-
+      await getSpeedDates(dispatch, isPublic);
+      if (speeddates.length <= 0) {
+      }
     };
-    if (speeddates.length >= 0) {
-      fetchData();
-    }
-  }, []);
+    fetchData();
+  }, [isPublic]);
 
   const viewPrivateRequest = async () => {
     if (user.loggedIn === true) {
-      await getSpeedDates(dispatch, true)
+      await getSpeedDates(dispatch, isPublic);
     } else {
       message.warning("You need to be logged in to view private requests. ");
     }
@@ -137,17 +72,17 @@ const [publicRequests, setPublicRequests] = useState([
       />
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-rose-700">
-          Speed Dating Central
+          Speed Dating Requests
         </h1>
         <Link to="/speeddating/create">
           <Button size="large" type="primary" icon={<HeartOutlined />}>
-            Create Speed Dating Request
+            Create Speed Date
           </Button>
         </Link>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
-        <div>
+        {/* <div>
           <h2 className="text-2xl font-semibold mb-4 flex items-center">
             <GiftOutlined className="mr-2 text-red-500" /> Request Types
           </h2>
@@ -167,19 +102,29 @@ const [publicRequests, setPublicRequests] = useState([
             <li>🔄 Automatic partner rotation</li>
             <li>🤝 Mutual consent for further connection</li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
-      <div className="my-5">
-        <h2 className="text-2xl font-bold text-rose-700 mb-6">
-          Active Speed Dating Requests
-        </h2>
-        <button
-          onClick={() => viewPrivateRequest()}
-          className="px-6 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition"
-        >
-          Private Date Requests
-        </button>
+      <div className="my-5 flex justify-between">
+        <div className=" ">
+          <h2 className="text-xl font-semibold mb-4">
+            {isPublic ? (
+              <button
+                onClick={() => setIsPublic(false)}
+                className="px-6 py-2 bg-green-900 text-white rounded-lg hover:bg-green-700 transition"
+              >
+                🌐 Public
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsPublic(true)}
+                className="px-6 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition"
+              >
+                🔐 Private
+              </button>
+            )}
+          </h2>
+        </div>
       </div>
 
       {speeddates.length <= 0 ? (
