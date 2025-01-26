@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button,  Avatar, Tag, message } from "antd";
+import { Button, Avatar, Tag, message, FloatButton } from "antd";
 import {
+  PlusOutlined,
   HeartOutlined,
   GiftOutlined,
   ClockCircleOutlined,
@@ -13,9 +14,8 @@ import { useSelector } from "react-redux";
 
 export default function SpeedDating() {
   const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
-    const [selectedRequest, setSelectedRequest] = useState(null);
-    const user = useSelector((state) => state.user);
-
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const user = useSelector((state) => state.user);
 
   const [publicRequests, setPublicRequests] = useState([
     {
@@ -171,15 +171,13 @@ export default function SpeedDating() {
     },
   ]);
 
-const viewPrivateRequest = () => {
-  if (user.loggedIn === true) {
-    message.info("Coming soon, this feature is not yet implemented.");
-  } else {
-    message.warning(
-      "You need to be logged in to view private requests. "
-    );
-  }
-};
+  const viewPrivateRequest = () => {
+    if (user.loggedIn === true) {
+      message.info("Coming soon, this feature is not yet implemented.");
+    } else {
+      message.warning("You need to be logged in to view private requests. ");
+    }
+  };
   const handleViewRequest = (request) => {
     setSelectedRequest(request);
     setIsRequestModalVisible(true);
@@ -191,13 +189,11 @@ const viewPrivateRequest = () => {
         <h1 className="text-3xl font-bold text-rose-700">
           Speed Dating Central
         </h1>
-        <Button
-          size="large"
-          type="primary"
-          icon={<HeartOutlined />}
-        >
-          <Link to="/speeddating/create">Create Speed Dating Request</Link>
-        </Button>
+        <Link to="/speeddating/create">
+          <Button size="large" type="primary" icon={<HeartOutlined />}>
+            Create Speed Dating Request
+          </Button>
+        </Link>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -294,6 +290,13 @@ const viewPrivateRequest = () => {
         setIsRequestModalVisible={setIsRequestModalVisible}
         selectedRequest={selectedRequest}
       />
+      <Link to="/speeddating/create">
+        <FloatButton
+          tooltip="create speeddating"
+          color={"green"}
+          icon={<PlusOutlined />}
+        />
+      </Link>
     </div>
   );
 }

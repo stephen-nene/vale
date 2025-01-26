@@ -23,9 +23,9 @@ const ProtectedRoute = ({ children, allowedRoles, allowPendingAccess }) => {
   ) {
     return <Unauthorised darkMode={darkMode} />;
   }
-  if (userData.status === "inactive" && !allowPendingAccess) {
-    return <NotActivate user={userData} darkMode={darkMode} />;
-  }
+  // if (userData.status === "inactive" && !allowPendingAccess) {
+  //   return <NotActivate user={userData} darkMode={darkMode} />;
+  // }
 
   return children;
 };
