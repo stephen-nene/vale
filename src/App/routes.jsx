@@ -9,8 +9,6 @@ const AuthRoutes = {
   Activate: lazy(() => import("../Components/Auth/Activate.jsx")),
 };
 
-
-
 import Landing from "../Components/pages/Landing.jsx";
 import Error404 from "../Components/others/Error404.jsx";
 import Contact from "../Components/pages/Contact.jsx";
@@ -26,7 +24,7 @@ import ViewVale from "../Components/pages/ViewVale.jsx";
 import SpeedDating from "../Components/pages/SpeedDating/SpeedDating.jsx";
 import ChatRoom from "../Components/pages/SpeedDating/ChatRoom.jsx";
 import SpeedDatingCreate from "../Components/pages/SpeedDating/CreateSpeedDate.jsx";
-
+import ViewSpeedDate from "../Components/pages/SpeedDating/ViewSpeedDate.jsx";
 
 // Route configurations
 export const routeConfig = [
@@ -46,8 +44,14 @@ export const routeConfig = [
   { path: "/viewvale/:id", element: ViewVale },
   { path: "/features", element: Features },
   { path: "/speeddating", element: SpeedDating },
-  { path: "/speeddating/:id", element: ChatRoom, protected: true},
-  { path: "/speeddating/create", element: SpeedDatingCreate, protected: true },
+  { path: "/speeddate/:id", element: ViewSpeedDate },
+  { path: "/speeddating/:id", element: ChatRoom, protected: true },
+  {
+    path: "/speeddating/create",
+    element: SpeedDatingCreate,
+    protected: true,
+    // allowPendingAccess: false,
+  },
 
   // Protected Routes
   {

@@ -3,11 +3,10 @@ import { Button, Avatar, Tag, message, FloatButton, Breadcrumb } from "antd";
 import {
   PlusOutlined,
   HeartOutlined,
-  GiftOutlined,
-  ClockCircleOutlined,
   UserOutlined,
   StarOutlined,
 } from "@ant-design/icons";
+
 import { Link } from "react-router-dom";
 import ViewModal from "./ViewSpeedDate";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,8 +25,8 @@ export default function SpeedDating() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getSpeedDates(dispatch, isPublic);
       if (speeddates.length <= 0) {
+        await getSpeedDates(dispatch, isPublic);
       }
     };
     fetchData();
@@ -174,24 +173,26 @@ export default function SpeedDating() {
               </div>
 
               {/* View Button */}
-              <Button
-                size="large"
-                type="primary"
-                icon={<HeartOutlined />}
-                onClick={() => handleViewRequest(request)}
-              >
-                View
-              </Button>
+              <Link state={{request}} to={`/speeddate/${request.id}`}>
+                <Button
+                  size="large"
+                  type="primary"
+                  icon={<HeartOutlined />}
+                  // onClick={() => handleViewRequest(request)}
+                >
+                  View
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
       )}
 
-      <ViewModal
+      {/* <ViewModal
         isRequestModalVisible={isRequestModalVisible}
         setIsRequestModalVisible={setIsRequestModalVisible}
         selectedRequest={selectedRequest}
-      />
+      /> */}
       <Link to="/speeddating/create">
         <FloatButton
           tooltip="create speeddating"
