@@ -6,11 +6,10 @@ import {
   FaBell,
   FaRegCalendarAlt,
   FaRegSmile,
-  FaUsers,
-  FaUserShield,
 } from "react-icons/fa";
 import { MdEmail, MdDashboard, MdFavorite, MdChat } from "react-icons/md";
 import { BsArrowRight } from "react-icons/bs";
+import {Link} from 'react-router-dom'
 
 const LandingPage = () => {
   const [activeFeature, setActiveFeature] = useState(null);
@@ -100,9 +99,12 @@ const LandingPage = () => {
               connections.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-              <button className="px-8 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition-colors">
-                Start Your Journey
-              </button>
+              <Link
+                className="px-8 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition-colors"
+                to="/login"
+              >
+                <button>Start Your Journey</button>
+              </Link>
               <button className="px-8 py-3 rounded-lg border-2 border-rose-600 text-rose-600 hover:bg-rose-50 transition-colors">
                 Learn More
               </button>
