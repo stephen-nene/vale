@@ -44,7 +44,7 @@ export const routeConfig = [
   { path: "/viewvale/:id", element: ViewVale },
   { path: "/features", element: Features },
   { path: "/speeddating", element: SpeedDating },
-  { path: "/speeddate/:id", element: ViewSpeedDate },
+  { path: "/speeddate/:id", element: ViewSpeedDate, protected: true },
   { path: "/speeddating/:id", element: ChatRoom, protected: true },
   {
     path: "/speeddating/create",

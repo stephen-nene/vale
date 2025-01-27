@@ -37,6 +37,42 @@ export const getSpeedDates = async (dispatch, mine = false) => {
   }
 };
 
+export const handleRequestToConnect = async (speeddate_id) => {
+  try {
+    const response = await apiClient.post("/speeddates/participants", {
+      speed_date_id: speeddate_id,
+    });
+    console.log(response);
+    if (response.status === 200) {
+      showMessage("success", response?.data?.message, 2);
+      return response.data;
+    } else {
+      showMessage("error", "Failed to connect", 2);
+    }
+  } catch (error) {
+    console.log(error.response);
+    showMessage("error", error?.response?.data?.error, 3);
+  }
+}
+
+export const getSpeedDateChats = async (speed_date_id, participant_id,setMessages) => {
+  try {
+    const response = await apiClient.get(`/speeddates/chats`, {
+      params: {
+        speed_date_id,
+        participant_id,
+      },
+    });
+    console.log(response.data);
+    if (response.status === 200) {
+      setMessages(response.data.chats);
+      return response.data;
+    }
+  } catch (error) {
+    console.error("Error response:", error.response);
+    showMessage("error", error?.response?.data?.detail, 3);
+  }
+}
 export const serverLogin = async (values, navigate, dispatch) => {
   const loadingMessage = message.loading("Logging in...", 0);
   try {

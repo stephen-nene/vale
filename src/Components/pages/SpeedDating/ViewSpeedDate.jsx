@@ -11,11 +11,21 @@ import {
   FaCommentDots,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { handleRequestToConnect } from "../../requests/requests";
 
 const ViewSpeedDate = () => {
-    const location = useLocation();
-    const { request } = location.state || {};
-// console.log(request)
+  const location = useLocation();
+  const { request } = location.state || {};
+  const user = useSelector((state) => state.user.userData);
+  console.log(user)
+
+  const isParticipant = request.participant.some(
+    (participant) => participant.email === user.email
+  );
+  const isCreator = request.creator.email === user.email;
+  
   if (!request)
     return (
       <div className="container mx-auto p-6 text-center">
@@ -60,7 +70,7 @@ const ViewSpeedDate = () => {
       </div>
 
       {/* Speed Date Details */}
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
+      <div className="grid md:grid-cols-1 gap-6 mb-6">
         {/* Details Column */}
         <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
           <h3 className="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-4">
@@ -111,9 +121,10 @@ const ViewSpeedDate = () => {
             />
           </div>
         </div>
-
         {/* Participants Column */}
-        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
+      </div>
+      {isCreator && (
+        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-5">
           <h3 className="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-4">
             Participants ({request.participant.length})
           </h3>
@@ -140,7 +151,7 @@ const ViewSpeedDate = () => {
             ))}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Action Buttons */}
       <div className="flex justify-between space-x-4">
@@ -152,24 +163,28 @@ const ViewSpeedDate = () => {
           Go Back
         </Button>
         {/* if loggedin user is in participants or is creator show this button */}
-        <Link to={`/speeddating/${request.id}`} className="text-white">
-          <Button
-            type="primary"
-            icon={<FaCommentDots />}
-            className="flex items-center justify-center bg-green-500 dark:bg-green-700 hover:bg-green-600 dark:hover:bg-green-800 text-white"
-          >
-            Chat Room
-          </Button>
-        </Link>
+        {(isParticipant || isCreator) && (
+          <Link state={{request}} to={`/speeddating/${request.id}`} className="text-white">
+            <Button
+              type="primary"
+              icon={<FaCommentDots />}
+              className="flex items-center justify-center bg-green-500 dark:bg-green-700 hover:bg-green-600 dark:hover:bg-green-800 text-white"
+            >
+              Chat Room
+            </Button>
+          </Link>
+        )}
         {/* if loggedin user is a participant or creator dont show this */}
-        <Button
-          onClick={() => message.info("add me to the data")}
-          type="primary"
-          icon={<FaHeart />}
-          className="flex items-center justify-center bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800"
-        >
-          Request to Connect
-        </Button>
+        {!isParticipant && !isCreator && (
+          <Button
+            onClick={() => handleRequestToConnect(request.id)}
+            type="primary"
+            icon={<FaHeart />}
+            className="flex items-center justify-center bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800"
+          >
+            Request to Connect
+          </Button>
+        )}
       </div>
     </div>
   );

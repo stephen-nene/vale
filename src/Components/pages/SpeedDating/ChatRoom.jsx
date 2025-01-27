@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  FaHeart,
   FaPaperPlane,
   FaUsers,
   FaCommentDots,
@@ -8,26 +7,35 @@ import {
   FaQuestionCircle,
 } from "react-icons/fa";
 import dummyData from "../../../assets/data/dummchats.json";
+import { useLocation, useParams } from "react-router-dom";
 
+import { getSpeedDateChats } from "../../requests/requests";
 const SpeedDatingChat = () => {
+
+  const location = useLocation();
+  const { request } = location.state || {};
+  const {id} = useParams()
   const [activeChat, setActiveChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [hoveredUser, setHoveredUser] = useState(null);
   const [messages, setMessages] = useState([]);
-
-  const handleAvatarClick = (id) => {
-    setActiveChat(id === activeChat ? null : id);
-    setMessages([]); // Clear messages for new chat
+  
+  
+  const handleAvatarClick = async (user) => {
+    console.log("speeddate id", id);
+    console.log("participant id", user.id);
+     await getSpeedDateChats(id, user.id,setMessages);
+    setActiveChat(user.id === activeChat ? null : user.id);
   };
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
-      setMessages([...messages, { sender: "currentUser", text: newMessage }]);
+      // setMessages([...messages, { sender: "currentUser", text: newMessage }]);
       setNewMessage("");
     }
   };
 
-  const activeParticipant = dummyData.participants.find(
+  const activeParticipant = request?.participant?.find(
     (p) => p.id === activeChat
   );
 
@@ -45,7 +53,7 @@ const SpeedDatingChat = () => {
 
           {/* Participant Avatars with Hover Effects */}
           <div className="flex items-center gap-4">
-            {dummyData.participants.map((user) => (
+            {request?.participant?.map((user, index) => (
               <div
                 key={user.id}
                 className="relative group"
@@ -53,9 +61,12 @@ const SpeedDatingChat = () => {
                 onMouseLeave={() => setHoveredUser(null)}
               >
                 <img
-                  src={user.avatar}
-                  alt={user.name}
-                  onClick={() => handleAvatarClick(user.id)}
+                  src={
+                    user.avatar ||
+                    `https://randomuser.me/api/portraits/men/${index}.jpg`
+                  }
+                  alt={user.username}
+                  onClick={() => handleAvatarClick(user)}
                   className={`w-12 h-12 rounded-full cursor-pointer transition-all duration-300 
                     ${
                       activeChat === user.id
@@ -66,7 +77,7 @@ const SpeedDatingChat = () => {
                 />
                 {hoveredUser === user.id && (
                   <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
-                    {user.name}
+                    {user.username}
                   </div>
                 )}
               </div>
@@ -76,10 +87,11 @@ const SpeedDatingChat = () => {
       </header>
 
       {/* Chat Container */}
+        {console.log(messages)}
       <main className="flex-1 overflow-y-auto p-6 space-y-6 max-w-4xl mx-auto w-full">
         {activeParticipant ? (
           <div className="space-y-6">
-            {activeParticipant.conversations.map((conversation, index) => (
+            {messages.map((msg, index) => (
               <div
                 key={index}
                 className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow"
@@ -88,7 +100,7 @@ const SpeedDatingChat = () => {
                 <div className="flex items-center bg-purple-100 dark:bg-purple-900/50 p-3 rounded-lg mb-4">
                   <FaQuestionCircle className="mr-3 text-purple-600 dark:text-purple-400" />
                   <p className="text-purple-800 dark:text-purple-200 italic">
-                    {conversation.question}
+                    {msg.question_text} {/* Display the question */}
                   </p>
                 </div>
 
@@ -103,7 +115,8 @@ const SpeedDatingChat = () => {
                     />
                     <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-lg flex-grow">
                       <p className="text-gray-800 dark:text-gray-200">
-                        {conversation.answers.participant}
+                        {msg.participant_answer}{" "}
+                        {/* Display participant's answer */}
                       </p>
                     </div>
                   </div>
@@ -111,7 +124,8 @@ const SpeedDatingChat = () => {
                   {/* Current User's Answer */}
                   <div className="flex items-start justify-end space-x-3">
                     <div className="bg-blue-500 text-white p-3 rounded-lg">
-                      <p>{conversation.answers.currentUser}</p>
+                      <p>{msg.creator_answer}</p>{" "}
+                      {/* Display current user's (creator's) answer */}
                     </div>
                     <img
                       src={dummyData.currentUser.avatar}
@@ -119,26 +133,6 @@ const SpeedDatingChat = () => {
                       className="w-8 h-8 rounded-full"
                     />
                   </div>
-                </div>
-              </div>
-            ))}
-
-            {/* New Messages */}
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${
-                  msg.sender === "currentUser" ? "justify-end" : ""
-                }`}
-              >
-                <div
-                  className={`${
-                    msg.sender === "currentUser"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 dark:bg-gray-700 text-gray-800"
-                  } p-3 rounded-lg mb-3 max-w-xs`}
-                >
-                  <p>{msg.text}</p>
                 </div>
               </div>
             ))}

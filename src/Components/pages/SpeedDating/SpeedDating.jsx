@@ -25,8 +25,8 @@ export default function SpeedDating() {
 
   useEffect(() => {
     const fetchData = async () => {
+      await getSpeedDates(dispatch, isPublic);
       if (speeddates.length <= 0) {
-        await getSpeedDates(dispatch, isPublic);
       }
     };
     fetchData();
