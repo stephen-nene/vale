@@ -123,7 +123,7 @@ const ViewSpeedDate = () => {
         </div>
         {/* Participants Column */}
       </div>
-      {isCreator && (
+      {isCreator   && (
         <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-5">
           <h3 className="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-4">
             Participants ({request.participant.length})
@@ -141,7 +141,7 @@ const ViewSpeedDate = () => {
                 /> */}
                 <div>
                   <p className="font-semibold text-gray-800 dark:text-gray-200">
-                    {participant.first_name} {participant.last_name}
+                    {participant.first_name|| 'N/A'} {participant.last_name || 'N/A'}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     {participant.username}
