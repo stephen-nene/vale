@@ -63,7 +63,7 @@ export const getSpeedDateChats = async (speed_date_id, participant_id,setMessage
         participant_id,
       },
     });
-    console.log(response.data);
+    // console.log(response.data);
     if (response.status === 200) {
       setMessages(response.data.chats);
       return response.data;
