@@ -13,7 +13,7 @@ const ChatHeader = ({ participants, activeChat, onAvatarClick }) => {
         </div>
         <div className="flex items-center gap-4">
           {participants?.map((user, index) => (
-            <div key={user.id} onClick={() => onAvatarClick(user)}>
+            <div key={user.id} onClick={() => onAvatarClick(user.id)}>
               <img
                 src={
                   user.avatar ||

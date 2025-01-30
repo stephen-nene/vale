@@ -4,6 +4,8 @@ import { FaCommentDots, FaQuestionCircle } from "react-icons/fa";
 const ChatMessages = ({ messages, activeParticipant, isParticipant }) => {
   // const isParticipant = activeParticipant?.email === user.email;
 
+  // console.log(isParticipant);
+
   return (
     <main className="flex-1 overflow-y-auto p-6 space-y-6 max-w-4xl mx-auto w-full">
       {activeParticipant ? (
@@ -24,7 +26,7 @@ const ChatMessages = ({ messages, activeParticipant, isParticipant }) => {
 
                 {/* Conversation Answers */}
                 <div className="space-y-4">
-                  {isParticipant ? (
+                  {!isParticipant ? (
                     <>
                       {/* Participant's Answer */}
                       <div className="flex items-start space-x-3">

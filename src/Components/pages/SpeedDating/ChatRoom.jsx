@@ -40,14 +40,15 @@ const SpeedDatingChat = () => {
       wsRef.current.close();
     }
 
-const wsUrl = `ws://localhost:8000/ws/speeddates/chats/${id}/${participantId}/`;
+    const wsUrl = `ws://localhost:8000/ws/speeddates/chats/${id}/${participantId}/`;
     wsRef.current = new WebSocket(wsUrl);
 
     wsRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "chats_data") {
-        console.log("Received chats:", data.chats);
+        // console.log("Received chats:", data.chats);
         setMessages(data.chats);
+        setActiveChat(participantId);
       }
     };
 
@@ -55,26 +56,28 @@ const wsUrl = `ws://localhost:8000/ws/speeddates/chats/${id}/${participantId}/`;
       console.error("WebSocket error:", error);
     };
 
-    wsRef.current.onclose = () => {
+    wsRef.current.onclose = (e) => {
       console.log("WebSocket connection closed");
     };
   };
+  // console.log(request) 
 
   useEffect(() => {
-    if (isParticipant) {
-      handleAvatarClick(user);
-    }
-  }, [user, isParticipant]);
-  useEffect(() => {
-    if (isParticipant) {
+    if (isParticipant && !wsRef.current) {
       connectWebSocket(user.id);
     }
-
     return () => {
       if (wsRef.current) {
         wsRef.current.close();
+        wsRef.current = null;
       }
     };
+  }, [isParticipant]); // Only depend on `isParticipant`
+
+  useEffect(() => {
+    if (isParticipant) {
+      // handleAvatarClick(user);
+    }
   }, [user, isParticipant]);
 
   return (
@@ -83,7 +86,7 @@ const wsUrl = `ws://localhost:8000/ws/speeddates/chats/${id}/${participantId}/`;
         <ChatHeader
           participants={request?.participant}
           activeChat={activeChat}
-          onAvatarClick={handleAvatarClick}
+          onAvatarClick={connectWebSocket}
         />
       )}
       <ChatMessages
