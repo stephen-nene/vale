@@ -7,7 +7,7 @@ const ChatMessages = ({ messages, activeParticipant, isParticipant }) => {
   // console.log(isParticipant);
 
   return (
-    <main className="flex-1 overflow-y-auto p-6 space-y-6 max-w-4xl mx-auto w-full">
+    <main className="flex-1 overflow-y -auto p-6 space-y -6 min-h-screen max-w-4xl mx-auto w-full">
       {activeParticipant ? (
         <div className="space-y-6">
           {messages.length > 0 ? (
@@ -46,9 +46,10 @@ const ChatMessages = ({ messages, activeParticipant, isParticipant }) => {
                       </div>
 
                       {/* Creator's Answer */}
+
                       <div className="flex items-start justify-end space-x-3">
                         <div className="bg-blue-500 text-white p-3 rounded-lg">
-                          <p>{msg.creator_answer}</p>
+                          <p>{msg.creator_answer || "awaiting"}</p>
                         </div>
                         <img
                           src={

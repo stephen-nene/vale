@@ -54,7 +54,7 @@ export const serverLogin = async (values, navigate, dispatch) => {
       showMessage("success", response?.data?.message, 2);
       dispatch(loginAction(response?.data?.User));
       console.log(response?.data);
-      navigate("/profile");
+      navigate(-1);
       return response.data;
     } else {
       showMessage("error", "Login Failed", 2);

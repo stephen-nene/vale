@@ -13,8 +13,7 @@ function App() {
   const darkMode = useSelector((state) => state.app.darkMode);
   const userData = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
-    const { pathname } = useLocation();
-
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!userData) {

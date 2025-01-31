@@ -10,21 +10,21 @@ import { routeConfig, Loader } from "./routes";
 import "../assets/css/App.css";
 import { getCurrentUser } from "../Components/requests/auth.js";
 
-// ScrollToTop Component
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to the top of the page
-  }, [pathname]); // Runs whenever the route changes
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  return null; // This component doesn't render anything
+  return null;
 }
 
 export default function App() {
   const darkMode = useSelector((state) => state.app.darkMode);
   const loggedIn = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (loggedIn?.loggedIn === false) {
@@ -70,15 +70,17 @@ export default function App() {
     );
   };
 
+  // Hide footer if the pathname starts with "/speeddating/{id}"
+  const hideFooter = pathname.startsWith("/speeddating/");
+
   return (
-    <div className={`${darkMode ? "dark " : ""} `}>
+    <div className={`${darkMode ? "dark " : ""}`}>
       <Navbar loggedIn={loggedIn} />
-      <div className="bg-pink-50 dark:bg-rose-950  dark:text-white min-h-screen ">
-        {/* Add ScrollToTop Component */}
+      <div className="bg-pink-50 dark:bg-rose-950 dark:text-white min-h-screen">
         <ScrollToTop />
         <Routes>{routeConfig.map(renderRoute)}</Routes>
       </div>
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   );
 }
