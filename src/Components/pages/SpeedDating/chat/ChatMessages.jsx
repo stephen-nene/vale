@@ -7,9 +7,9 @@ const ChatMessages = ({ messages, activeParticipant, isParticipant }) => {
   // console.log(isParticipant);
 
   return (
-    <main className="flex-1 overflow-y -auto p-6 space-y -6 min-h-screen max-w-4xl mx-auto w-full">
+    <main className="flex-1 overflow-y -auto p-6 space-y-8 pb-18 min-h-fit max-w-4xl mx-auto w-full">
       {activeParticipant ? (
-        <div className="space-y-6">
+        <div className="space-y-6 p mb -18">
           {messages.length > 0 ? (
             messages.map((msg, index) => (
               <div

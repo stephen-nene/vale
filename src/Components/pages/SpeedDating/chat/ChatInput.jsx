@@ -3,7 +3,7 @@ import { FaSmile, FaPaperPlane } from "react-icons/fa";
 
 const ChatInput = ({ newMessage, setNewMessage, onSendMessage }) => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t dark:border-gray-700/50">
+    <footer className="fixed bottom-0 left-0 right-0  p-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t dark:border-gray-700/50">
       <div className="max-w-4xl mx-auto flex items-center space-x-3">
         <FaSmile className="text-2xl text-gray-500 dark:text-gray-400 cursor-pointer hover:text-blue-500" />
         <input
