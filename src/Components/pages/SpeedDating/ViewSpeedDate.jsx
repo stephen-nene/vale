@@ -75,16 +75,26 @@ const ViewSpeedDate = () => {
           icon={<FaUser className="text-gray-500 dark:text-gray-300" />}
           className="mr-6 bg-gray-200 dark:bg-gray-700"
         />
-        <div>
-          <h2 className="text-2xl font-bold text-rose-700 dark:text-rose-500">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div className="flex items-center gap-4">
+
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 m b-3">
+            Creator: 
+          </h2>
+          <h2 className="text-xl font-bold text-rose-700 dark:text-rose-500">
             {request.creator?.first_name} {request.creator?.last_name}
           </h2>
-          <div className="space-y-2 text-gray-600 dark:text-gray-400">
+          </div>
+          <div className="mt-3 space-y-2 text-gray-700 dark:text-gray-300">
             <p>
-              <strong>Username:</strong> {request.creator?.username}
+              <strong className="text-gray-900 dark:text-white">
+                Username:
+              </strong>{" "}
+              {request.creator?.username}
             </p>
             <p>
-              <strong>Email:</strong> {request.creator?.email}
+              <strong className="text-gray-900 dark:text-white">Email:</strong>{" "}
+              {request.creator?.email}
             </p>
           </div>
         </div>
@@ -193,7 +203,7 @@ const ViewSpeedDate = () => {
 
         {!isParticipant && !isCreator && (
           <button
-            onClick={() => handleRequestToConnect(request.id,setRequest)}
+            onClick={() => handleRequestToConnect(request.id, setRequest)}
             className="flex items-center justify-center bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800 text-white py-2 px-4 rounded-md transition-colors"
           >
             <FaHeart className="mr-2" />
