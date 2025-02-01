@@ -64,63 +64,46 @@ const SpeedDatingChat = () => {
     }
   };
 
-  const connectWebSocket = (participantId) => {
-    if (wsRef.current) {
-      wsRef.current.close();
-    }
+const connectWebSocket = (participantId) => {
+  if (wsRef.current) {
+    wsRef.current.close();
+  }
 
-    const wsUrl = `ws://vale-backend.onrender.com/ws/speeddates/chats/${id}/${participantId}/`;
-    wsRef.current = new WebSocket(wsUrl);
+  // Automatically use wss:// if the frontend is served over HTTPS
+  const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+  const wsUrl = `${protocol}vale-backend.onrender.com/ws/speeddates/chats/${id}/${participantId}/`;
 
-    // wsRef.current.onmessage = (event) => {
-    //   const data = JSON.parse(event.data);
-    //   if (data.type === "chats_data") {
-    //     setMessages(data.chats);
-    //     setActiveChat(participantId);
-    //   } else if (data.message) {
-    //     setMessages((prev) => [
-    //       ...prev,
-    //       { sender: data.sender_id, text: data.message },
-    //     ]);
-    //   }
-    // };
+  wsRef.current = new WebSocket(wsUrl);
 
-    wsRef.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      // console.log("Received WebSocket message:", data); // Debugging
+  wsRef.current.onmessage = (event) => {
+    const data = JSON.parse(event.data);
 
-      if (data.type === "chats_data") {
-        setActiveChat(participantId);
-
-        setMessages(data.chats);
-      } else if (data.type === "new_message") {
-        setMessages((prevMessages) => {
-          const messageExists = prevMessages.some(
-            (msg) => msg.id === data.chat.id
-          );
-
-          if (messageExists) {
-            // Update the message if it already exists
-            return prevMessages.map((msg) =>
+    if (data.type === "chats_data") {
+      setActiveChat(participantId);
+      setMessages(data.chats);
+    } else if (data.type === "new_message") {
+      setMessages((prevMessages) => {
+        const messageExists = prevMessages.some(
+          (msg) => msg.id === data.chat.id
+        );
+        return messageExists
+          ? prevMessages.map((msg) =>
               msg.id === data.chat.id ? { ...msg, ...data.chat } : msg
-            );
-          } else {
-            // Otherwise, add the new message
-            return [...prevMessages, data.chat];
-          }
-        });
-      }
-
-    };
-
-    wsRef.current.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    wsRef.current.onclose = (e) => {
-      console.log("WebSocket connection closed");
-    };
+            )
+          : [...prevMessages, data.chat];
+      });
+    }
   };
+
+  wsRef.current.onerror = (error) => {
+    console.error("WebSocket error:", error);
+  };
+
+  wsRef.current.onclose = (e) => {
+    console.log("WebSocket connection closed");
+  };
+};
+
   // console.log(request)
 
   useEffect(() => {
