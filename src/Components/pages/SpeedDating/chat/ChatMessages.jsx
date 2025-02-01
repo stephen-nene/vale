@@ -45,18 +45,33 @@ const Message = ({ msg, activeParticipant, isParticipant }) => {
     </div>
   );
 
-  const shouldShowCreatorAnswer =
-    msg.creator_answer && (msg.participant_answer || !isParticipant);
-
-  const shouldShowParticipantAnswer =
-    msg.participant_answer && (msg.creator_answer || isParticipant);
-
-  const getHiddenMessage = (userType) => {
-    if (!msg.creator_answer && !msg.participant_answer) {
-      return "No responses yet. Send your answer to unlock the conversation.";
+  const getMessageVisibility = () => {
+    // If user is the creator (not a participant)
+    if (!isParticipant) {
+      return {
+        showCreatorMessage: true, // Always show their own message
+        showParticipantMessage: Boolean(msg.participant_answer), // Show participant's message only if they've answered
+        creatorHiddenMessage: "Waiting for participant's response",
+        participantHiddenMessage: "Waiting for participant to respond",
+      };
     }
-    return `${userType}'s answer is hidden. Waiting `;
+    // If user is a participant
+    else {
+      return {
+        showCreatorMessage: Boolean(msg.participant_answer), // Show creator's message only after participant has answered
+        showParticipantMessage: Boolean(msg.participant_answer), // Show their own message if they've answered
+        creatorHiddenMessage: "Answer will be revealed after you respond",
+        participantHiddenMessage: "Waiting for your response",
+      };
+    }
   };
+
+  const {
+    showCreatorMessage,
+    showParticipantMessage,
+    creatorHiddenMessage,
+    participantHiddenMessage,
+  } = getMessageVisibility();
 
   return (
     <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow">
@@ -74,15 +89,15 @@ const Message = ({ msg, activeParticipant, isParticipant }) => {
               isOwn={false}
               avatar={activeParticipant?.avatar}
               content={msg.participant_answer}
-              isHidden={!shouldShowParticipantAnswer}
-              hiddenMessage={getHiddenMessage("Participant")}
+              isHidden={!showParticipantMessage}
+              hiddenMessage={participantHiddenMessage}
             />
             <MessageBubble
               isOwn={true}
               avatar={msg.creator_avatar}
               content={msg.creator_answer}
-              isHidden={!shouldShowCreatorAnswer}
-              hiddenMessage={getHiddenMessage("Creator")}
+              isHidden={!showCreatorMessage}
+              hiddenMessage={creatorHiddenMessage}
             />
           </>
         ) : (
@@ -91,15 +106,15 @@ const Message = ({ msg, activeParticipant, isParticipant }) => {
               isOwn={true}
               avatar={activeParticipant?.avatar}
               content={msg.participant_answer}
-              isHidden={!shouldShowParticipantAnswer}
-              hiddenMessage={getHiddenMessage("Participant")}
+              isHidden={!showParticipantMessage}
+              hiddenMessage={participantHiddenMessage}
             />
             <MessageBubble
               isOwn={false}
               avatar={msg.creator_avatar}
               content={msg.creator_answer}
-              isHidden={!shouldShowCreatorAnswer}
-              hiddenMessage={getHiddenMessage("Creator")}
+              isHidden={!showCreatorMessage}
+              hiddenMessage={creatorHiddenMessage}
             />
           </>
         )}

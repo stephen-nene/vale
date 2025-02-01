@@ -53,7 +53,7 @@ export default function Navbar({ loggedIn }) {
           </NavLink>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6 text-lg">
+          <div className="hidden md:flex space-x-6 text-lg items-center">
             {/* <NavLink
               to="/requests"
               className="hover:text-pink-200 transition-colors"
@@ -92,13 +92,19 @@ export default function Navbar({ loggedIn }) {
             >
               Contact
             </NavLink>
-            {loggedIn?.loggedIn && (
+            {loggedIn?.loggedIn ? (
               <NavLink
                 to="/profile"
                 className="hover:text-pink-200 transition-colors"
               >
                 Profile
               </NavLink>
+            ) : (
+              <Link to="/login">
+                <button className="bg-white text-rose-600 hover:bg-pink-100 px-4 py-2 rounded-full transition-colors">
+                  Login
+                </button>
+              </Link>
             )}
           </div>
 

@@ -13,7 +13,11 @@ const ChatHeader = ({ participants, activeChat, onAvatarClick }) => {
         </div>
         <div className="flex items-center gap-4">
           {participants?.map((user, index) => (
-            <div key={user.id} onClick={() => onAvatarClick(user.id)}>
+            <div
+              key={user.id}
+              className="relative group"
+              onClick={() => onAvatarClick(user.id)}
+            >
               <img
                 src={
                   user.avatar ||
@@ -26,6 +30,16 @@ const ChatHeader = ({ participants, activeChat, onAvatarClick }) => {
                     : "hover:scale-110 hover:ring-2 hover:ring-purple-500"
                 }`}
               />
+              {/* Username Tooltip */}
+              <span
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 
+                              px-2 py-1 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 
+                              text-xs rounded-md opacity-0 group-hover:opacity-100 
+                              transition-opacity duration-300 pointer-events-none
+                              whitespace-nowrap"
+              >
+                {user.username}
+              </span>
             </div>
           ))}
         </div>

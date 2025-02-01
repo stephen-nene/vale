@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Select, InputNumber, Button,Breadcrumb } from "antd";
+import { Form, Input, Select, InputNumber, Button, Breadcrumb } from "antd";
 import { FiSend } from "react-icons/fi";
 import {Link} from 'react-router-dom'
 

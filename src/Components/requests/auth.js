@@ -32,15 +32,19 @@ export const getCurrentUser = async (dispatch) => {
   try {
     const response = await apiClient.get("/auth/me");
 
-      if (response.status === 200) {
-        console.log(response.data)
-    //   showMessage("success", `welcome ${response.data.name}`, 1);
+    if (response.status === 200) {
+      // console.log(response.data)
+      //   showMessage("success", `welcome ${response.data.name}`, 1);
       dispatch(loginAction(response?.data?.User));
       return response;
     }
   } catch (error) {
     console.log(error.response?.data);
-    showMessage("error", error?.response?.data?.detail || "An error occurred", 3);
+    showMessage(
+      "error",
+      error?.response?.data?.detail || "An error occurred",
+      3
+    );
     // throw error
   }
 };
@@ -58,7 +62,7 @@ export const serverLogin = async (values, navigate, dispatch) => {
       return response.data;
     } else {
       showMessage("error", "Login Failed", 2);
-    //   throw new Error("Login failed");
+      //   throw new Error("Login failed");
     }
   } catch (error) {
     console.error("Error response:", error.response);
@@ -68,7 +72,7 @@ export const serverLogin = async (values, navigate, dispatch) => {
   }
 };
 
-export const serverSignup = async (values, navigate,setError) => {
+export const serverSignup = async (values, navigate, setError) => {
   const loadingMessage = message.loading("Signing up...", 0);
 
   try {

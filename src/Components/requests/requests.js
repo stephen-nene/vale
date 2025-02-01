@@ -21,41 +21,72 @@ export const getRequests = async (setSelectedRequest) => {
   }
 };
 
-export const getSpeedDates = async (dispatch, mine = false) => {
+export const getChatById = async (id, setRequest) => {
+  const loadingMessage = showMessage("loading","getting speed date...", 0);
+  try {
+    const response = await apiClient.get(`/speed_date/${id}`);
+    // console.log(response.data);
+    if (response.status === 200) { 
+      setRequest(response.data.speed_date);
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error.response?.data);
+    showMessage("error", error?.response?.data?.detail|| "try again later!", 3);
+    throw error;
+  } finally {
+    loadingMessage();
+  }
+};
+
+export const getSpeedDates = async (dispatch, mine = false,setIsPublic) => {
+  const loadingMessage = showMessage("loading","getting speed dates...", 0);
   try {
     const response = await apiClient.get("/speed_dates", {
       params: { mine: mine },
     });
     if (response.status === 200) {
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(setSpeedDate(response.data?.speed_dates));
       return response.data;
     }
   } catch (error) {
-    console.log("error", error?.response?.data?.detail);
-    showMessage("error", error?.response?.data?.detail || "Try again later", 3);
+    setIsPublic(false);
+    console.log("error", error?.response?.data);
+    showMessage("error", error?.response?.data?.detail || "Try again later", 1);
+  } finally {
+    loadingMessage();
   }
 };
 
-export const handleRequestToConnect = async (speeddate_id) => {
+export const handleRequestToConnect = async (speeddate_id, setRequest) => {
+  const loadingMessage = showMessage("loading","adding to chatroom...", 0);
   try {
     const response = await apiClient.post("/speeddates/participants", {
       speed_date_id: speeddate_id,
     });
-    console.log(response);
+    console.log(response.data.speed_date);
     if (response.status === 200) {
       showMessage("success", response?.data?.message, 2);
-      return response.data;
+      setRequest(response.data.speed_date);
+      // return response.data;
     } else {
       showMessage("error", "Failed to connect", 2);
     }
   } catch (error) {
     console.log(error.response);
-    showMessage("error", error?.response?.data?.error, 3);
+    showMessage("error", error?.response?.data?.detail, 3);
+  } finally {
+    loadingMessage();
   }
-}
+};
 
-export const getSpeedDateChats = async (speed_date_id, participant_id,setMessages) => {
+export const getSpeedDateChats = async (
+  speed_date_id,
+  participant_id,
+  setMessages
+) => {
+  const loadingMessage = message.loading("Loading chats...", 0);
   try {
     const response = await apiClient.get(`/speeddates/chats`, {
       params: {
@@ -71,8 +102,10 @@ export const getSpeedDateChats = async (speed_date_id, participant_id,setMessage
   } catch (error) {
     console.error("Error response:", error.response);
     showMessage("error", error?.response?.data?.detail, 3);
+  } finally {
+    loadingMessage();
   }
-}
+};
 export const serverLogin = async (values, navigate, dispatch) => {
   const loadingMessage = message.loading("Logging in...", 0);
   try {

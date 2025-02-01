@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, Tag, Button, message } from "antd";
 import {
   FaUser,
@@ -10,23 +10,38 @@ import {
   FaArrowLeft,
   FaCommentDots,
 } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { handleRequestToConnect } from "../../requests/requests";
+import { handleRequestToConnect,getChatById } from "../../requests/requests";
 
 const ViewSpeedDate = () => {
   const location = useLocation();
-  const { request } = location.state || {};
+  const { id } = useParams();
+  const [request, setRequest] = useState();
   const user = useSelector((state) => state.user.userData);
-  console.log(user)
 
-  const isParticipant = request.participant.some(
+  useEffect(() => {
+    // setRequest(location.state.request );
+  }, [location]); 
+  
+  useEffect(() => {
+
+    const getChatByIdHere = async () => {
+      if (!request) {
+        await getChatById(id,setRequest);
+        message.error("No Speed Date Found");
+      }
+    }
+    getChatByIdHere();
+  },[])
+
+  const isParticipant = request?.participant?.some(
     (participant) => participant.email === user.email
   );
-  const isCreator = request.creator.email === user.email;
-  
-  if (!request)
+  const isCreator = request?.creator?.email === user.email;
+
+  if (!request) {
     return (
       <div className="container mx-auto p-6 text-center">
         <h1 className="text-2xl font-bold text-red-500 dark:text-red-300">
@@ -34,6 +49,7 @@ const ViewSpeedDate = () => {
         </h1>
       </div>
     );
+  }
 
   return (
     <div className=" p-6 rounded-xl sha dow-2xl">
@@ -51,19 +67,25 @@ const ViewSpeedDate = () => {
       <div className="flex items-center bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-6">
         <Avatar
           size={120}
+          src={
+            request.creator?.profilePic ||
+            `https://randomuser.me/api/portraits/men/${Math.floor(
+              Math.random() * 100
+            )}.jpg`
+          }
           icon={<FaUser className="text-gray-500 dark:text-gray-300" />}
           className="mr-6 bg-gray-200 dark:bg-gray-700"
         />
         <div>
           <h2 className="text-2xl font-bold text-rose-700 dark:text-rose-500">
-            {request.creator.first_name} {request.creator.last_name}
+            {request.creator?.first_name} {request.creator?.last_name}
           </h2>
           <div className="space-y-2 text-gray-600 dark:text-gray-400">
             <p>
-              <strong>Username:</strong> {request.creator.username}
+              <strong>Username:</strong> {request.creator?.username}
             </p>
             <p>
-              <strong>Email:</strong> {request.creator.email}
+              <strong>Email:</strong> {request.creator?.email}
             </p>
           </div>
         </div>
@@ -71,7 +93,6 @@ const ViewSpeedDate = () => {
 
       {/* Speed Date Details */}
       <div className="grid md:grid-cols-1 gap-6 mb-6">
-        {/* Details Column */}
         <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
           <h3 className="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-4">
             Event Details
@@ -121,9 +142,8 @@ const ViewSpeedDate = () => {
             />
           </div>
         </div>
-        {/* Participants Column */}
       </div>
-      {isCreator   && (
+      {isCreator && (
         <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-5">
           <h3 className="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-4">
             Participants ({request.participant.length})
@@ -134,14 +154,10 @@ const ViewSpeedDate = () => {
                 key={participant.username}
                 className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm"
               >
-                {/* <Avatar
-                  size={50}
-                  icon={<FaUser className="text-gray-500 dark:text-gray-300" />}
-                  className="mr-4 bg-gray-200 dark:bg-gray-600"
-                /> */}
                 <div>
                   <p className="font-semibold text-gray-800 dark:text-gray-200">
-                    {participant.first_name|| 'N/A'} {participant.last_name || 'N/A'}
+                    {participant.first_name || "N/A"}{" "}
+                    {participant.last_name || "N/A"}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     {participant.username}
@@ -155,35 +171,35 @@ const ViewSpeedDate = () => {
 
       {/* Action Buttons */}
       <div className="flex justify-between space-x-4">
-        <Button
-          icon={<FaArrowLeft />}
+        <button
           onClick={() => window.history.back()}
-          className="flex items-center justify-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+          className="flex items-center justify-center bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-100 py-2 px-4 rounded-md transition-colors"
         >
+          <FaArrowLeft className="mr-2" />
           Go Back
-        </Button>
-        {/* if loggedin user is in participants or is creator show this button */}
+        </button>
+
         {(isParticipant || isCreator) && (
-          <Link state={{request}} to={`/speeddating/${request.id}`} className="text-white">
-            <Button
-              type="primary"
-              icon={<FaCommentDots />}
-              className="flex items-center justify-center bg-green-500 dark:bg-green-700 hover:bg-green-600 dark:hover:bg-green-800 text-white"
-            >
+          <Link
+            state={{ request }}
+            to={`/speeddating/${request.id}`}
+            className="text-white"
+          >
+            <button className="flex items-center justify-center bg-green-500 dark:bg-green-700 hover:bg-green-600 dark:hover:bg-green-800 text-white py-2 px-4 rounded-md transition-colors">
+              <FaCommentDots className="mr-2" />
               Chat Room
-            </Button>
+            </button>
           </Link>
         )}
-        {/* if loggedin user is a participant or creator dont show this */}
+
         {!isParticipant && !isCreator && (
-          <Button
-            onClick={() => handleRequestToConnect(request.id)}
-            type="primary"
-            icon={<FaHeart />}
-            className="flex items-center justify-center bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800"
+          <button
+            onClick={() => handleRequestToConnect(request.id,setRequest)}
+            className="flex items-center justify-center bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800 text-white py-2 px-4 rounded-md transition-colors"
           >
+            <FaHeart className="mr-2" />
             Request to Connect
-          </Button>
+          </button>
         )}
       </div>
     </div>

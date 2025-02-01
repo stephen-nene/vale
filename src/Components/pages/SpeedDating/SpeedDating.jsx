@@ -25,25 +25,13 @@ export default function SpeedDating() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getSpeedDates(dispatch, isPublic);
+      await getSpeedDates(dispatch, isPublic,setIsPublic);
       if (speeddates.length <= 0) {
       }
     };
     fetchData();
   }, [isPublic]);
 
-  const viewPrivateRequest = async () => {
-    if (user.loggedIn === true) {
-      await getSpeedDates(dispatch, isPublic);
-    } else {
-      message.warning("You need to be logged in to view private requests. ");
-    }
-  };
-
-  const handleViewRequest = (request) => {
-    setSelectedRequest(request);
-    setIsRequestModalVisible(true);
-  };
 
   return (
     <div className="container mx-auto p-8">
@@ -119,7 +107,7 @@ export default function SpeedDating() {
                 onClick={() => setIsPublic(true)}
                 className="px-6 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition"
               >
-                🔐 Private
+                🔐 Involved
               </button>
             )}
           </h2>
@@ -135,45 +123,51 @@ export default function SpeedDating() {
           {speeddates.map((request) => (
             <div
               key={request.id}
-              className="bg-rose-100 dark:bg-black p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+              className="bg-rose-100 dark:bg-rose-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
             >
-              {/* Creator Info */}
-              <div className="flex items-center mb-4">
-                <Avatar
-                  src={request.creator?.profilePic}
-                  size={64}
-                  icon={<UserOutlined />}
-                  className="mr-4"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold">
-                    {request.creator.username}
-                  </h3>
-                  <p className="text-gray-500">Age: {request.creator.age}</p>
-                </div>
-              </div>
-
               {/* Speed Date Details */}
               <div className="mb-4">
                 <div className="my-3">
-                  <h3 className="text-lg font-medium">{request.title}</h3>
+                  <h3 className="text-lg font-semibold">{request.title}</h3>
                   <p className="text-sm text-gray-500">{request.description}</p>
+                </div>
+                {/* Creator Info */}
+                <div className="flex items-center mb-4">
+                  <Avatar
+                    src={
+                      request.creator?.profilePic ||
+                      `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100)}.jpg`
+
+                    }
+                    size={64}
+                    icon={<UserOutlined />}
+                    className="mr-4"
+                  />
+                  <div>
+                    <h3 className="text-lg font-medium">
+                      Created by {request.creator.username}
+                    </h3>
+                    <Tag
+                      className="mt-4"
+                      icon={<StarOutlined />}
+                      color={
+                        request.date_type === "private" ? "green" : "orange"
+                      }
+                    >
+                      {request.date_type}
+                    </Tag>
+                  </div>
                 </div>
               </div>
 
               {/* Status and Availability */}
-              <div className="flex justify-between items-center my-5">
-                <Tag
-                  icon={<StarOutlined />}
-                  color={request.date_type === "private" ? "green" : "orange"}
-                >
-                  {request.date_type}
-                </Tag>
-                <span className="text-gray-500">{request.availability}</span>
+              <div className="flex gap-3 items-center my-5">
+                <span className="">Availability:</span>
+                <span className="text-gray-500"> {request.availability}</span>
               </div>
 
               {/* View Button */}
-              <Link state={{request}} to={`/speeddate/${request.id}`}>
+              <Link state={{ request }} to={`/speeddate/${request.id}`}>
                 <Button
                   size="large"
                   type="primary"
