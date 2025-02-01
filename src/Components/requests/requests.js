@@ -59,6 +59,26 @@ export const getSpeedDates = async (dispatch, mine = false,setIsPublic) => {
   }
 };
 
+export const createSpeedDate = async ( data,navigate) => {
+  const loadingMessage = showMessage("loading","creating speed date...", 0);
+  try {
+    const response = await apiClient.post("/speed_dates", data);
+    // console.log(response.data);
+    if (response.status === 201) {
+      console.log(response)
+      showMessage("success", response?.data?.message, 2);
+      navigate(-1)
+      // dispatch(setSpeedDate(response.data.speed_date));
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error.response);
+    showMessage("error", error?.response?.data?.detail, 3);
+  } finally {
+    loadingMessage();
+  }
+}
+
 export const handleRequestToConnect = async (speeddate_id, setRequest) => {
   const loadingMessage = showMessage("loading","adding to chatroom...", 0);
   try {

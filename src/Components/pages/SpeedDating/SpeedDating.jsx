@@ -129,7 +129,7 @@ export default function SpeedDating() {
               <div className="mb-4">
                 <div className="my-3">
                   <h3 className="text-lg font-semibold">{request.title}</h3>
-                  <p className="text-sm text-gray-500">{request.description}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-300">{request.description}</p>
                 </div>
                 {/* Creator Info */}
                 <div className="flex items-center mb-4">

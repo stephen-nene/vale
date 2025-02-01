@@ -1,13 +1,17 @@
 import React from "react";
 import { Form, Input, Select, InputNumber, Button, Breadcrumb } from "antd";
 import { FiSend } from "react-icons/fi";
-import {Link} from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+
+
+import { createSpeedDate } from "../../requests/requests";
 
 export default function CreateSpeedDate() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log("Form values:", values);
+  const onFinish = async (values) => {
+    await createSpeedDate(values,navigate);
   };
 
   return (
@@ -48,9 +52,10 @@ export default function CreateSpeedDate() {
         onFinish={onFinish}
         className="space-y-4"
         size="large"
-        defaultValue={{
+        initialValues={{
           date_type: "public",
           duration: 30,
+          max_questions: 10,
           max_participants: 10,
         }}
       >
@@ -86,7 +91,6 @@ export default function CreateSpeedDate() {
         <Form.Item
           label="View Type"
           name="date_type"
-          initialValue="public"
           rules={[{ required: true, message: "Please select a date type" }]}
         >
           <Select
