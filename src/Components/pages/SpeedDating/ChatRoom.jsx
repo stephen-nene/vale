@@ -69,7 +69,7 @@ const SpeedDatingChat = () => {
       wsRef.current.close();
     }
 
-    const wsUrl = `ws://localhost:8000/ws/speeddates/chats/${id}/${participantId}/`;
+    const wsUrl = `ws://vale-backend.onrender.com/ws/speeddates/chats/${id}/${participantId}/`;
     wsRef.current = new WebSocket(wsUrl);
 
     // wsRef.current.onmessage = (event) => {
