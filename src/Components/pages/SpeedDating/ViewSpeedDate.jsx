@@ -30,7 +30,6 @@ const ViewSpeedDate = () => {
     const getChatByIdHere = async () => {
       if (!request) {
         await getChatById(id,setRequest);
-        message.error("No Speed Date Found");
       }
     }
     getChatByIdHere();

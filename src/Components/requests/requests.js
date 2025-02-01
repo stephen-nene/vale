@@ -46,7 +46,6 @@ export const getSpeedDates = async (dispatch, mine = false,setIsPublic) => {
       params: { mine: mine },
     });
     if (response.status === 200) {
-      // console.log(response.data);
       dispatch(setSpeedDate(response.data?.speed_dates));
       return response.data;
     }
