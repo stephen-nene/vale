@@ -41,7 +41,7 @@ const SpeedDatingChat = () => {
         answer: newMessage, // Message content
       };
 
-      console.log("Sending message:", messageData);
+      // console.log("Sending message:", messageData);
       wsRef.current.send(JSON.stringify(messageData)); // Send to WebSocket server
 
       // Optimistically update UI (if needed)
@@ -87,7 +87,7 @@ const SpeedDatingChat = () => {
 
     wsRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("Received WebSocket message:", data); // Debugging
+      // console.log("Received WebSocket message:", data); // Debugging
 
       if (data.type === "chats_data") {
         setActiveChat(participantId);
@@ -142,7 +142,7 @@ const SpeedDatingChat = () => {
   }, [user, isParticipant]);
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {!isParticipant && (
         <ChatHeader
           participants={request?.participant}
